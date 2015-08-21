@@ -10,3 +10,4 @@ Pack and Sign an HTML Extension
 
 
 2-Installing the existing package
+./ExManCmd --install "/Users/mgena/Documents/INDESIGN/staging/org.nuxeo.indesignconnector.zxp"
