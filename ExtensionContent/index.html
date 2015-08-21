@@ -1,0 +1,92 @@
+<!doctype html>
+
+<html>
+<head>
+<meta charset="utf-8">
+<script src="./ext.js"></script>
+<script src="./lib/CSInterface-4.0.0.js"></script>
+<script src="./lib/jquery-1.9.1.js"></script>
+<script src="./lib/nuxeo.js"></script>
+<script type="text/javascript">
+
+$(function() {
+	$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+	  {
+	    tags: "autumn",
+	    tagmode: "any",
+	    format: "json"
+	  },
+	  function(data) {
+	    $.each(data.items, function(i,item){
+	      $("<img id=\""+item.media.m+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+item.media.m+"')\" style=\"cursor:pointer;\"/>").attr("src", item.media.m).appendTo("#images");
+	      if ( i == 8 ) return false;
+	    });
+	  });
+});
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    //var data = ev.dataTransfer.getData("text");
+    //ev.target.appendChild(data);
+}
+
+// Entry point
+// $(function() {	
+// 	var nuxeoClient = new nuxeo.Client({
+// 		  baseURL: 'http://dam.cloud.nuxeo.com/nuxeo/',
+// 		  auth: {
+// 			    // optional, default to 'basic'
+// 			    method: 'basic',
+// 			    username: 'XXX',
+// 			    password: 'XXX'
+// 			  }
+// 		});
+	
+// 	nuxeoClient.request('query/AssetsForNuxeoInDesignConnector').schema('file').header("X-NXContext-Category", "thumbnail").get(
+// 	function(error, assets) {
+// 	    if (error) {
+// 	      // something went wrong
+// 	      throw error;
+// 	    }
+			
+// 	    $.each(assets.entries, function(i,asset){	
+// 	   	    $("<img id=\""+asset.properties["file:content"].data+"\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"')\" style=\"cursor:pointer;\"/>").attr("src", asset.contextParameters.thumbnail.url).appendTo("#images");
+// 	   	    if ( i == 10 ) return false;
+// 	   	});	   
+// 	  });
+	
+// });
+</script>
+<link href="./galaxy-style.css" rel="stylesheet" type="text/css">
+
+<style>
+	img{ height: 150px; float: left; padding: 5px;}
+</style>
+<link id="ppstyle" rel="stylesheet" type="text/css" href="./style.css">
+<title>nuxeo InDesign Connector</title>
+</head>
+
+<body onLoad="onLoaded()" class="documentManagement galaxyDefaultCss2077347671 nxStyle13453556PageFrame">
+<!-- <img src="http://dam.cloud.nuxeo.com/nuxeo/nxfile/default/761e9866-e723-4649-b420-c7661ed5ad86/blobholder:0/"/> -->
+<table summary="" cellpadding="0" cellspacing="0" border="0" class="themeSectionFrame nxHeader" style="height: 40px;">
+  <tbody><tr><td valign="top" class="themeCellFrame logo">
+  <div class="menu">
+<div class="siteLogo">
+<img src="./img/nuxeo_dam_logo.png" alt="Nuxeo" title="Nuxeo" style="width:186px;height:20px">
+</div>
+</div></td>
+</tr>
+</tbody></table>
+<div id="content">
+ <div id="images"></div>
+</div></body>
+
+</html>
