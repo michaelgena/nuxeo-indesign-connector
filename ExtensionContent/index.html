@@ -7,6 +7,9 @@
 <script src="./lib/CSInterface-4.0.0.js"></script>
 <script src="./lib/jquery-1.9.1.js"></script>
 <script src="./lib/nuxeo.js"></script>
+
+<link rel="stylesheet" type="text/css" href="./semantic-ui/dist/semantic.min.css">
+<script src="./semantic-ui/dist/semantic.min.js"></script>
 <script type="text/javascript">
 
 $(function() {
@@ -18,8 +21,9 @@ $(function() {
 	  },
 	  function(data) {
 	    $.each(data.items, function(i,item){
-	      $("<img id=\""+item.media.m+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+item.media.m+"')\" style=\"cursor:pointer;\"/>").attr("src", item.media.m).appendTo("#images");
-	      if ( i == 8 ) return false;
+	      $("<div class=\"column\"><div class=\"ui segment\"><img class=\"ui fluid image\" id=\""+item.media.m+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+item.media.m+"')\" src=\""+item.media.m+"\" style=\"cursor:pointer;\"/></div></div>").appendTo("#images");
+	      //$("<img class=\"ui medium bordered image\" id=\""+item.media.m+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+item.media.m+"')\" src=\""+item.media.m+"\" style=\"cursor:pointer;\"/>").appendTo("#images");
+	      //if ( i == 8 ) return false;
 	    });
 	  });
 });
@@ -38,55 +42,122 @@ function drop(ev) {
     //ev.target.appendChild(data);
 }
 
+
+function getAssets(url, login, pwd){
+	
+	var nuxeoClient = new nuxeo.Client({
+	  baseURL: 'http://'+url,
+	  auth: {
+		    // optional, default to 'basic'
+		    method: 'basic',
+		    username: login,
+		    password: pwd
+		  }
+	});
+
+
+nuxeoClient.request('query/AssetsForInDesignConnector').schema('file').header("X-NXContext-Category", "thumbnail").get(
+function(error, assets) {
+  if (error) {
+    // something went wrong
+    throw error;
+  }
+		
+  $.each(assets.entries, function(i,asset){
+	  $("<div class=\"column\"><div class=\"ui segment\"><img class=\"ui fluid image\" id=\""+asset.properties["file:content"].data+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"')\" src=\""+asset.contextParameters.thumbnail.url+"\" style=\"cursor:pointer;\"/></div></div>").appendTo("#images");
+ 	    //$("<img id=\""+asset.properties["file:content"].data+"\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"')\" style=\"cursor:pointer;\"/>").attr("src", asset.contextParameters.thumbnail.url).appendTo("#images");
+ 	    //if ( i == 10 ) return false;
+ 	});	   
+});
+	
+}
+
+
 // Entry point
-// $(function() {	
-// 	var nuxeoClient = new nuxeo.Client({
-// 		  baseURL: 'http://dam.cloud.nuxeo.com/nuxeo/',
-// 		  auth: {
-// 			    // optional, default to 'basic'
-// 			    method: 'basic',
-// 			    username: 'XXX',
-// 			    password: 'XXX'
-// 			  }
-// 		});
-	
-// 	nuxeoClient.request('query/AssetsForNuxeoInDesignConnector').schema('file').header("X-NXContext-Category", "thumbnail").get(
-// 	function(error, assets) {
-// 	    if (error) {
-// 	      // something went wrong
-// 	      throw error;
-// 	    }
-			
-// 	    $.each(assets.entries, function(i,asset){	
-// 	   	    $("<img id=\""+asset.properties["file:content"].data+"\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"')\" style=\"cursor:pointer;\"/>").attr("src", asset.contextParameters.thumbnail.url).appendTo("#images");
-// 	   	    if ( i == 10 ) return false;
-// 	   	});	   
-// 	  });
-	
+//$(function() {	
+	getAssets("http://localhost:8080/nuxeo/", "Administrator", "Administrator");	
 // });
 </script>
-<link href="./galaxy-style.css" rel="stylesheet" type="text/css">
-
+<!--link href="./galaxy-style.css" rel="stylesheet" type="text/css"-->
 <style>
 	img{ height: 150px; float: left; padding: 5px;}
 </style>
-<link id="ppstyle" rel="stylesheet" type="text/css" href="./style.css">
+<!--link id="ppstyle" rel="stylesheet" type="text/css" href="./style.css"-->
 <title>nuxeo InDesign Connector</title>
 </head>
 
-<body onLoad="onLoaded()" class="documentManagement galaxyDefaultCss2077347671 nxStyle13453556PageFrame">
-<!-- <img src="http://dam.cloud.nuxeo.com/nuxeo/nxfile/default/761e9866-e723-4649-b420-c7661ed5ad86/blobholder:0/"/> -->
-<table summary="" cellpadding="0" cellspacing="0" border="0" class="themeSectionFrame nxHeader" style="height: 40px;">
-  <tbody><tr><td valign="top" class="themeCellFrame logo">
-  <div class="menu">
-<div class="siteLogo">
-<img src="./img/nuxeo_dam_logo.png" alt="Nuxeo" title="Nuxeo" style="width:186px;height:20px">
-</div>
-</div></td>
-</tr>
-</tbody></table>
-<div id="content">
- <div id="images"></div>
-</div></body>
+<body onLoad="onLoaded()">
 
+<!-- <div class="ui top attached tabular menu"> -->
+<!--   <div class="item"> -->
+<!--     <img src="./img/logo.png"  style="height:35px"> -->
+<!--   </div> -->
+<!--   <a class="item active"> -->
+<!--     Assets -->
+<!--   </a> -->
+<!--   <a class="item"> -->
+<!--     Settings -->
+<!--   </a> -->
+  
+<!--   <div class="right menu"> -->
+<!--     <div class="item"> -->
+<!--       <div class="ui transparent icon input"> -->
+<!--         <input type="text" placeholder="Search..."> -->
+<!--         <i class="search link icon"></i> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </div> -->
+<!-- <div class="ui bottom attached segment"> -->
+<!--   <div id="content"> -->
+<!-- 	<div id="images" class="ui two column grid"></div> -->
+<!-- 	<!--div id="images" class="ui small images"></div--> 
+<!-- 	</div> -->
+<!-- </div> -->
+
+<div class="ui stackable borderless menu">
+	<div class="item">
+		<a class="item" onclick="$('#setting').hide();$('#content').show();" style="cursor: pointer;">
+    		<img src="./img/logo.png"  style="height:35px">
+    	</a>
+  	</div>
+	<a class="item" onclick="$('#setting').show();$('#content').hide();">
+	   <i class="setting small icon"></i>
+	</a>
+</div> 
+<div id="content">
+	<div id="images" class="ui two column grid"></div>
+	<!--div id="images" class="ui small images"></div -->
+</div>
+<div id="setting" style="display:none;">
+<form class="ui fluid form">
+  <div class="field">
+	<div class="ui labeled input">
+	  <div class="ui label">
+	    http://
+	  </div>
+	  <input id="host" type="text" value="" placeholder="your nuxeo instance">
+	</div>
+	</div>
+	<div class="field">
+	<div class="ui left icon input">
+	  <input id="login" type="text" placeholder="Login">
+	   <i class="User icon"></i>
+	</div>
+	</div>
+	<div class="field">
+	<div class="ui left icon input">
+	  <input id="password" type="password" placeholder="Password">
+	   <i class="Lock icon"></i>
+	</div>
+	</div>
+	<button class="ui primary button" onclick="getAssets($('#url').val(),$('#login').val(), $('#pwd').val());$('#setting').hide();$('#content').show();">
+	  Save
+	</button>
+	<button class="ui button">
+	  Discard
+	</button>
+</form>	
+</div>
+</body>
 </html>
