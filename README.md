@@ -16,3 +16,18 @@ Pack and Sign an HTML Extension
 
 2-Installing the existing package
 ./ExManCmd --install "/Users/mgena/Documents/INDESIGN/staging/org.nuxeo.indesignconnector.zxp"
+
+
+Copying the extension into place
+
+Now that the system is ready to load our unsigned extension, the last thing we have to do is copy our extension into the shared extensions folder on disk:
+
+On Mac, copy the extension into ~/Library/Application Support/Adobe/CEPServiceManager4/extensions
+On Windows, copy the extension into %APPDATA%\Adobe\CEPServiceManager4\extensions
+When you're done you should have a folder structure like this:
+
+extensions/
+    HelloWorld/
+        CSXS/
+            manifest.xml
+        index.html
