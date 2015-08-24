@@ -12,21 +12,21 @@
 <script src="./semantic-ui/dist/semantic.min.js"></script>
 <script type="text/javascript">
 
-$(function() {
-	$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
-	  {
-	    tags: "autumn",
-	    tagmode: "any",
-	    format: "json"
-	  },
-	  function(data) {
-	    $.each(data.items, function(i,item){
-	      $("<div class=\"column\"><div class=\"ui segment\"><img class=\"ui fluid image\" id=\""+item.media.m+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+item.media.m+"')\" src=\""+item.media.m+"\" style=\"cursor:pointer;\"/></div></div>").appendTo("#images");
-	      //$("<img class=\"ui medium bordered image\" id=\""+item.media.m+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+item.media.m+"')\" src=\""+item.media.m+"\" style=\"cursor:pointer;\"/>").appendTo("#images");
-	      //if ( i == 8 ) return false;
-	    });
-	  });
-});
+// $(function() {
+// 	$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+// 	  {
+// 	    tags: "autumn",
+// 	    tagmode: "any",
+// 	    format: "json"
+// 	  },
+// 	  function(data) {
+// 	    $.each(data.items, function(i,item){
+// 	      $("<div class=\"column\"><div class=\"ui segment\"><img class=\"ui fluid image\" id=\""+item.media.m+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+item.media.m+"')\" src=\""+item.media.m+"\" style=\"cursor:pointer;\"/></div></div>").appendTo("#images");
+// 	      //$("<img class=\"ui medium bordered image\" id=\""+item.media.m+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+item.media.m+"')\" src=\""+item.media.m+"\" style=\"cursor:pointer;\"/>").appendTo("#images");
+// 	      //if ( i == 8 ) return false;
+// 	    });
+// 	  });
+// });
 
 function allowDrop(ev) {
     ev.preventDefault();
@@ -62,7 +62,7 @@ function(error, assets) {
     // something went wrong
     throw error;
   }
-		
+  $("#images").html("");	
   $.each(assets.entries, function(i,asset){
 	  $("<div class=\"column\"><div class=\"ui segment\"><img class=\"ui fluid image\" id=\""+asset.properties["file:content"].data+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"')\" src=\""+asset.contextParameters.thumbnail.url+"\" style=\"cursor:pointer;\"/></div></div>").appendTo("#images");
  	    //$("<img id=\""+asset.properties["file:content"].data+"\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"')\" style=\"cursor:pointer;\"/>").attr("src", asset.contextParameters.thumbnail.url).appendTo("#images");
@@ -74,9 +74,9 @@ function(error, assets) {
 
 
 // Entry point
-//$(function() {	
-	getAssets("http://localhost:8080/nuxeo/", "Administrator", "Administrator");	
-// });
+$(function() {	
+	getAssets("localhost:8080/nuxeo/", "Administrator", "Administrator");	
+});
 </script>
 <!--link href="./galaxy-style.css" rel="stylesheet" type="text/css"-->
 <style>
@@ -122,7 +122,10 @@ function(error, assets) {
     	</a>
   	</div>
 	<a class="item" onclick="$('#setting').show();$('#content').hide();">
-	   <i class="setting small icon"></i>
+	   <i class="setting big icon"></i>
+	</a>
+	<a class="item" onclick="getAssets('localhost:8080/nuxeo/', 'Administrator', 'Administrator');$('#setting').hide();$('#content').show();">
+	   <i class="refresh big icon"></i>
 	</a>
 </div> 
 <div id="content">
@@ -154,7 +157,7 @@ function(error, assets) {
 	<button class="ui primary button" onclick="getAssets($('#url').val(),$('#login').val(), $('#pwd').val());$('#setting').hide();$('#content').show();">
 	  Save
 	</button>
-	<button class="ui button">
+	<button class="ui button" onclick="$('#login').val(), $('#pwd').val());$('#setting').hide();$('#content').show();">
 	  Discard
 	</button>
 </form>	
