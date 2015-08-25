@@ -22,7 +22,7 @@ Copying the extension into place
 
 Now that the system is ready to load our unsigned extension, the last thing we have to do is copy our extension into the shared extensions folder on disk:
 
-On Mac, copy the extension into ~/Library/Application\ Support/Adobe/CEPServiceManager4/extensions
+On Mac, copy the extension into ~/Library/Application\ Support/Adobe/CEP/extensions
 On Windows, copy the extension into %APPDATA%\Adobe\CEP\extensions
 When you're done you should have a folder structure like this:
 
