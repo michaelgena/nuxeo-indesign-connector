@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <script src="./ext.js"></script>
-<script src="./lib/CSInterface-4.0.0.js"></script>
+<script src="./lib/CSInterface-5.0.0.js"></script>
 <script src="./lib/jquery-1.9.1.js"></script>
 <script src="./lib/nuxeo.js"></script>
 
@@ -42,10 +42,11 @@ function drop(ev) {
     //ev.target.appendChild(data);
 }
 
+var nuxeoClient;
 
 function getAssets(url, login, pwd){
-	
-	var nuxeoClient = new nuxeo.Client({
+	$("#images").html("");	
+	nuxeoClient = new nuxeo.Client({
 	  baseURL: 'http://'+url,
 	  auth: {
 		    // optional, default to 'basic'
@@ -54,29 +55,65 @@ function getAssets(url, login, pwd){
 		    password: pwd
 		  }
 	});
-
-
-nuxeoClient.request('query/AssetsForInDesignConnector').schema('file').header("X-NXContext-Category", "thumbnail").get(
-function(error, assets) {
-  if (error) {
-    // something went wrong
-    throw error;
-  }
-  $("#images").html("");	
-  $.each(assets.entries, function(i,asset){
-	  $("<div class=\"column\"><div class=\"ui segment\"><img class=\"ui fluid image\" id=\""+asset.properties["file:content"].data+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"')\" src=\""+asset.contextParameters.thumbnail.url+"\" style=\"cursor:pointer;\"/></div></div>").appendTo("#images");
- 	    //$("<img id=\""+asset.properties["file:content"].data+"\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"')\" style=\"cursor:pointer;\"/>").attr("src", asset.contextParameters.thumbnail.url).appendTo("#images");
- 	    //if ( i == 10 ) return false;
- 	});	   
-});
+	
+	nuxeoClient.request('query/AssetsForInDesignConnector').schema('file').header("X-NXContext-Category", "thumbnail").get(
+	function(error, assets) {
+	  if (error) {
+	    // something went wrong
+	    $("#images").html(error);
+	    throw error;
+	  }
+	  
+	  $.each(assets.entries, function(i,asset){
+		  $("<div class=\"column\"><div class=\"ui segment\"><img class=\"ui fluid image\" id=\""+asset.properties["file:content"].data+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"', '"+asset.properties["file:content"].digest+"', '"+asset.uid+"')\" src=\""+asset.contextParameters.thumbnail.url+"\" style=\"cursor:pointer;\"/></div></div>").appendTo("#images");
+	 	    //$("<img id=\""+asset.properties["file:content"].data+"\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"')\" style=\"cursor:pointer;\"/>").attr("src", asset.contextParameters.thumbnail.url).appendTo("#images");
+	 	    //if ( i == 10 ) return false;
+	 	});	   
+	});
 	
 }
 
 
 // Entry point
 $(function() {	
-	getAssets("localhost:8080/nuxeo/", "Administrator", "Administrator");	
+	getAssets($('#host').val(),$('#login').val(), $('#password').val());	
 });
+
+
+
+function onRefreshButton() {
+    var extScript = "$._ext_IDSN.refresh()";
+    new CSInterface().evalScript(extScript, function(result){
+		//alert(result);
+        if(result != ""){
+            result = JSON.parse(result);
+            $.each(result.entries, function(i,link){    
+            	//alert("id: "+link.id);
+            	nuxeoClient.request('id/'+link.id).schema('file').get(
+	    			function(error, asset) {
+	    				if (error) {
+	    			    	// something went wrong
+	    			    	throw error;
+	    			  	}	
+	    			  	//alert(link.id);
+    				  	//alert(link.digest +" "+ asset.properties["file:content"].digest);
+    				  	if(link.digest != asset.properties["file:content"].digest){
+    						//alert("Asset has changed!");
+    						object = {};
+    						object.id = asset.uid;
+    						object.url = asset.properties["file:content"].data;
+    						object.digest = asset.properties["file:content"].digest;
+    						object = JSON.stringify(object);
+    						object = escape(object); 
+    						//alert("uploadAsset: "+object);
+    						uploadAsset(object);
+    					}    			 	   
+    			});
+            });
+        }
+    });
+}
+
 </script>
 <!--link href="./galaxy-style.css" rel="stylesheet" type="text/css"-->
 <style>
@@ -88,33 +125,6 @@ $(function() {
 
 <body onLoad="onLoaded()">
 
-<!-- <div class="ui top attached tabular menu"> -->
-<!--   <div class="item"> -->
-<!--     <img src="./img/logo.png"  style="height:35px"> -->
-<!--   </div> -->
-<!--   <a class="item active"> -->
-<!--     Assets -->
-<!--   </a> -->
-<!--   <a class="item"> -->
-<!--     Settings -->
-<!--   </a> -->
-  
-<!--   <div class="right menu"> -->
-<!--     <div class="item"> -->
-<!--       <div class="ui transparent icon input"> -->
-<!--         <input type="text" placeholder="Search..."> -->
-<!--         <i class="search link icon"></i> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!-- </div> -->
-<!-- <div class="ui bottom attached segment"> -->
-<!--   <div id="content"> -->
-<!-- 	<div id="images" class="ui two column grid"></div> -->
-<!-- 	<!--div id="images" class="ui small images"></div--> 
-<!-- 	</div> -->
-<!-- </div> -->
-
 <div class="ui stackable borderless menu">
 	<div class="item">
 		<a class="item" onclick="$('#setting').hide();$('#content').show();" style="cursor: pointer;">
@@ -124,7 +134,7 @@ $(function() {
 	<a class="item" onclick="$('#setting').show();$('#content').hide();">
 	   <i class="setting big icon"></i>
 	</a>
-	<a class="item" onclick="getAssets('localhost:8080/nuxeo/', 'Administrator', 'Administrator');$('#setting').hide();$('#content').show();">
+	<a class="item" onclick="getAssets($('#host').val(),$('#login').val(), $('#password').val());$('#setting').hide();$('#content').show();onRefreshButton();">
 	   <i class="refresh big icon"></i>
 	</a>
 </div> 
@@ -139,25 +149,25 @@ $(function() {
 	  <div class="ui label">
 	    http://
 	  </div>
-	  <input id="host" type="text" value="" placeholder="your nuxeo instance">
+	  <input id="host" type="text" value="localhost:8080/nuxeo/" placeholder="your nuxeo instance">
 	</div>
 	</div>
 	<div class="field">
 	<div class="ui left icon input">
-	  <input id="login" type="text" placeholder="Login">
+	  <input id="login" type="text" value="Administrator" placeholder="Login">
 	   <i class="User icon"></i>
 	</div>
 	</div>
 	<div class="field">
 	<div class="ui left icon input">
-	  <input id="password" type="password" placeholder="Password">
+	  <input id="password" type="password" value="Administrator" placeholder="Password">
 	   <i class="Lock icon"></i>
 	</div>
 	</div>
-	<button class="ui primary button" onclick="getAssets($('#url').val(),$('#login').val(), $('#pwd').val());$('#setting').hide();$('#content').show();">
+	<button class="ui primary button" onclick="getAssets($('#host').val(),$('#login').val(), $('#password').val());$('#setting').hide();$('#content').show();">
 	  Save
 	</button>
-	<button class="ui button" onclick="$('#login').val(), $('#pwd').val());$('#setting').hide();$('#content').show();">
+	<button class="ui button" onclick="$('#login').val(), $('#password').val());$('#setting').hide();$('#content').show();">
 	  Discard
 	</button>
 </form>	

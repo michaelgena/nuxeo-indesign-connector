@@ -27,8 +27,39 @@ function onLoaded() {
     // Update the color of the panel when the theme color of the product changed.
     csInterface.addEventListener(CSInterface.THEME_COLOR_CHANGED_EVENT, onAppThemeColorChanged);
 	
+    addPlugPlugSuccessEventListener();
+    loadPlugPlugLibrary();
 }
 
+//This function takes care of loading the PlugPlugExternalLibrary object on
+//the ExtendScript side. We'll use this object to send InDesign event notifications
+//and data back to the JS side of the extension.
+function loadPlugPlugLibrary(){
+  var csInterface = new CSInterface();
+  //Determine the plaform, so that we can direct our ExtendScript to the correct version.
+  var osInformation = csInterface.getOSInformation();
+  var plugPlugFile;
+  if(osInformation.match(/Mac OS/gi)!= null){
+      plugPlugFile = csInterface.getSystemPath(SystemPath.EXTENSION) + "/jsx/libraries/PlugPlugExternalObject-Mac/osx10_64/PlugPlugExternalObject.framework";
+  }
+  else{
+      if(osInformation.match(/64-bit/gi) != null){
+          plugPlugFile = csInterface.getSystemPath(SystemPath.EXTENSION) + "/jsx/libraries/PlugPlugExternalObject-Win/win64/PlugPlugExternalObject.dll";        
+      }
+      else{
+          plugPlugFile = csInterface.getSystemPath(SystemPath.EXTENSION) + "/jsx/libraries/PlugPlugExternalObject-Win/win32/PlugPlugExternalObject.dll";                    
+      }
+  }
+  plugPlugFile = escape(plugPlugFile);
+  csInterface.evalScript('loadPlugPlugLibrary("' + plugPlugFile + '")');
+}
+
+function addPlugPlugSuccessEventListener(){
+    var csInterface = new CSInterface();
+    csInterface.addEventListener("plugPlugSuccess", function(){
+        alert("PlugPlug library loaded!");
+    });
+}
 
 
 /**
@@ -170,7 +201,23 @@ function evalScript(script, callback) {
     new CSInterface().evalScript(script, callback);
 }
 
-function onClickButton(url) {
-    var extScript = "$._ext_IDSN.run('"+url+"')";
+function onClickButton(url, digest, id) {
+	var object = {};
+	object.url = url;
+	object.digest = digest;
+	object.id = id;
+	object = JSON.stringify(object);
+	object = escape(object);
+    //var extScript = "$._ext_IDSN.run('"+url+"', '"+digest+"')";
+	//alert(object);
+	var extScript = "$._ext_IDSN.run('"+object+"')";
 	evalScript(extScript);
 }
+
+function uploadAsset(object) {
+	//object = JSON.stringify(object);
+	//object = escape(object);
+	var extScript = "$._ext_IDSN.upload('"+object+"')";
+	evalScript(extScript);
+}
+
