@@ -1,13 +1,12 @@
 
 function onLoaded() {
     var csInterface = new CSInterface();
-	
-    
+	    
     var appName = csInterface.hostEnvironment.appName;
     
     if(appName != "FLPR"){
     	loadJSX();
-    }    
+    }   
     
     var extScript = "$._ext_IDSN.initialize()";
 	evalScript(extScript);
@@ -20,9 +19,8 @@ function onLoaded() {
            if (btn)
                 btn.disabled = false;
         }
-    }
+    } 
     
-
     updateThemeWithAppSkinInfo(csInterface.hostEnvironment.appSkinInfo);
     // Update the color of the panel when the theme color of the product changed.
     csInterface.addEventListener(CSInterface.THEME_COLOR_CHANGED_EVENT, onAppThemeColorChanged);

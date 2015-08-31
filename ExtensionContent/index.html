@@ -76,17 +76,21 @@ function getAssets(url, login, pwd){
 
 // Entry point
 $(function() {	
-	getAssets($('#host').val(),$('#login').val(), $('#password').val());	
+	getAssets($('#host').val(),$('#login').val(), $('#password').val());
+	setTimeout("onRefreshButton(false)", 5000);
 });
 
-
-
-function onRefreshButton() {
+var nb = 0;
+function onRefreshButton(doUpload) {
+	if(!doUpload){	   
+		setTimeout("onRefreshButton(false)", 5000);
+	}	
     var extScript = "$._ext_IDSN.refresh()";
     new CSInterface().evalScript(extScript, function(result){
 		//alert(result);
         if(result != ""){
             result = JSON.parse(result);
+            nb = 0;
             $.each(result.entries, function(i,link){    
             	//alert("id: "+link.id);
             	nuxeoClient.request('id/'+link.id).schema('file').get(
@@ -99,18 +103,31 @@ function onRefreshButton() {
     				  	//alert(link.digest +" "+ asset.properties["file:content"].digest);
     				  	if(link.digest != asset.properties["file:content"].digest){
     						//alert("Asset has changed!");
-    						object = {};
-    						object.id = asset.uid;
-    						object.url = asset.properties["file:content"].data;
-    						object.digest = asset.properties["file:content"].digest;
-    						object = JSON.stringify(object);
-    						object = escape(object); 
-    						//alert("uploadAsset: "+object);
-    						uploadAsset(object);
+    						if(doUpload){
+	    						object = {};
+	    						object.id = asset.uid;
+	    						object.url = asset.properties["file:content"].data;
+	    						object.digest = asset.properties["file:content"].digest;
+	    						object = JSON.stringify(object);
+	    						object = escape(object); 
+	    						//alert("uploadAsset: "+object);
+	    						uploadAsset(object);
+	    						$("#badge").removeClass("badge1").attr("data-badge", "");
+	    						nb = 0;
+    						}else{
+    							nb++;
+    							//alert(nb + " " + $("#badge").attr("data-badge"));	
+    							if( $("#badge").attr("data-badge") == "" || parseInt($("#badge").attr("data-badge")) < nb){
+    								$("#badge").addClass("badge1").attr("data-badge", nb);
+    							}
+    						}
     					}    			 	   
     			});
             });
         }
+    	if(nb == 0){
+	   		$("#badge").removeClass("badge1").attr("data-badge", "");
+	   	}      
     });
 }
 
@@ -118,6 +135,24 @@ function onRefreshButton() {
 <!--link href="./galaxy-style.css" rel="stylesheet" type="text/css"-->
 <style>
 	img{ height: 150px; float: left; padding: 5px;}
+	
+	.badge1 {
+   		position:relative;
+	}
+	.badge1[data-badge]:after {
+	   content:attr(data-badge);
+	   position:absolute;
+	   top:-10px;
+	   right:-10px;
+	   font-size:.4em;
+	   background:red;
+	   color:white;
+	   width:18px;height:18px;
+	   text-align:center;
+	   line-height:18px;
+	   border-radius:50%;
+	   box-shadow:0 0 1px #333;
+	}
 </style>
 <!--link id="ppstyle" rel="stylesheet" type="text/css" href="./style.css"-->
 <title>nuxeo InDesign Connector</title>
@@ -134,8 +169,8 @@ function onRefreshButton() {
 	<a class="item" onclick="$('#setting').show();$('#content').hide();">
 	   <i class="setting big icon"></i>
 	</a>
-	<a class="item" onclick="getAssets($('#host').val(),$('#login').val(), $('#password').val());$('#setting').hide();$('#content').show();onRefreshButton();">
-	   <i class="refresh big icon"></i>
+	<a class="item" onclick="getAssets($('#host').val(),$('#login').val(), $('#password').val());$('#setting').hide();$('#content').show();onRefreshButton(true);">
+	   <i id="badge" class="refresh big icon" data-badge=""></i>
 	</a>
 </div> 
 <div id="content">
