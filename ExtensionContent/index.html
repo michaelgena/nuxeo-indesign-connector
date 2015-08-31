@@ -84,6 +84,9 @@ var nb = 0;
 function onRefreshButton(doUpload) {
 	if(!doUpload){	   
 		setTimeout("onRefreshButton(false)", 5000);
+		if(nb == 0){
+	   		$("#badge").removeClass("badge1").attr("data-badge", "");
+	   	}
 	}	
     var extScript = "$._ext_IDSN.refresh()";
     new CSInterface().evalScript(extScript, function(result){
@@ -125,9 +128,7 @@ function onRefreshButton(doUpload) {
     			});
             });
         }
-    	if(nb == 0){
-	   		$("#badge").removeClass("badge1").attr("data-badge", "");
-	   	}      
+    	      
     });
 }
 
