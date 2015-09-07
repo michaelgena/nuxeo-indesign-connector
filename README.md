@@ -73,8 +73,7 @@ Once the anonymous user is created, you need to select the folders to which you 
 
 ## How to install the nuxeo connector for inDesign
 
-**Step 1 :**
-Unzip and copy the folder package/org.nuxeo.indesignconnector :
+**Step 1 Copy the folder "org.nuxeo.indesignconnector" that you'll find under the "package" folder :
 ```
 On Mac, into ~/Library/Application Support/Adobe/CEP/extensions
 ```
