@@ -74,7 +74,7 @@ Once the anonymous user is created, you need to select the folders to which you 
 
 ## How to install the nuxeo connector for inDesign
 
-Step 1 :
+**Step 1 :**
 Unzip and copy the folder package/org.nuxeo.indesignconnector :
 ```
 On Mac, into ~/Library/Application Support/Adobe/CEP/extensions
@@ -82,7 +82,7 @@ On Mac, into ~/Library/Application Support/Adobe/CEP/extensions
 ```
 On Windows, into %APPDATA%\Adobe\CEP\extensions
 ```
-Step 2 :
+**Step 2 :**
 On Mac
 Open inDesign and go to the Scripts Panel (Window > Utilities > Scripts)
 Right click on the "User" folder and click on "Reveal in Finder"
@@ -91,7 +91,7 @@ Next, run the EnableUnsignedExtensions.jsx script by double clicking on it on th
 On Windows
 Open the registry key HKEY_CURRENT_USER/Software/Adobe/CSXS.4 and add a key named PlayerDebugMode, of type String, and value 1.
 
-Step 3 :
+**Step 3 :**
 Restart inDesign and go to Window > Extensions > nuxeo InDesign Connector
 Once there click on the settings icon and fill in the following informations:
 -url of your nuxeo instance
