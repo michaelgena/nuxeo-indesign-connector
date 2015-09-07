@@ -76,9 +76,12 @@ Once the anonymous user is created, you need to select the folders to which you 
 
 Step 1 :
 Unzip and copy the folder package/org.nuxeo.indesignconnector :
+```
 On Mac, into ~/Library/Application Support/Adobe/CEP/extensions
+```
+```
 On Windows, into %APPDATA%\Adobe\CEP\extensions
-
+```
 Step 2 :
 On Mac
 Open inDesign and go to the Scripts Panel (Window > Utilities > Scripts)
