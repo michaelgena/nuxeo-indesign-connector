@@ -1,0 +1,231 @@
+<!doctype html>
+
+<html>
+<head>
+<meta charset="utf-8">
+<script src="./ext.js"></script>
+<script src="./lib/CSInterface-5.0.0.js"></script>
+<script src="./lib/jquery-1.9.1.js"></script>
+<script src="./lib/nuxeo.js"></script>
+
+<link rel="stylesheet" type="text/css" href="./semantic-ui/dist/semantic.min.css">
+<script src="./semantic-ui/dist/semantic.min.js"></script>
+<script type="text/javascript">
+
+// $(function() {
+// 	$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+// 	  {
+// 	    tags: "autumn",
+// 	    tagmode: "any",
+// 	    format: "json"
+// 	  },
+// 	  function(data) {
+// 	    $.each(data.items, function(i,item){
+// 	      $("<div class=\"column\"><div class=\"ui segment\"><img class=\"ui fluid image\" id=\""+item.media.m+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+item.media.m+"')\" src=\""+item.media.m+"\" style=\"cursor:pointer;\"/></div></div>").appendTo("#images");
+// 	      //$("<img class=\"ui medium bordered image\" id=\""+item.media.m+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+item.media.m+"')\" src=\""+item.media.m+"\" style=\"cursor:pointer;\"/>").appendTo("#images");
+// 	      //if ( i == 8 ) return false;
+// 	    });
+// 	  });
+// });
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    //var data = ev.dataTransfer.getData("text");
+    //ev.target.appendChild(data);
+}
+
+var nuxeoClient;
+
+function getAssets(url, login, pwd, request){
+	//$("#images").html("<br/><br/><div class=\"ui segment\"><div class=\"ui active inverted dimmer\"><div class=\"ui text loader\">Loading</div></div><p></p></div>");	
+	nuxeoClient = new nuxeo.Client({
+	  baseURL: 'http://'+url,
+	  auth: {
+		    // optional, default to 'basic'
+		    method: 'basic',
+		    username: login,
+		    password: pwd
+		  }
+	});
+	
+	nuxeoClient.request(request).schema('file').header("X-NXContext-Category", "thumbnail").get(
+	function(error, assets) {
+	  if (error) {
+	    // something went wrong
+	    $("#images").html(error);
+	    throw error;
+	  }
+	  $("#images").html("");
+	  if(assets.entries == 0){
+		  //$("#images").html("<br/><br/><div class=\"ui segment\"><div class=\"ui active inverted dimmer\"><div class=\"ui text loader\">Loading</div></div><p></p></div>");
+	  }
+	  $.each(assets.entries, function(i,asset){
+		  $("<div class=\"column\"><div class=\"ui segment\"><img class=\"ui fluid image\" id=\""+asset.properties["file:content"].data+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"', '"+asset.properties["file:content"].digest+"', '"+asset.uid+"')\" src=\""+asset.contextParameters.thumbnail.url+"\" style=\"cursor:pointer;\"/></div></div>").appendTo("#images");
+	 	    //$("<img id=\""+asset.properties["file:content"].data+"\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"')\" style=\"cursor:pointer;\"/>").attr("src", asset.contextParameters.thumbnail.url).appendTo("#images");
+	 	    //if ( i == 10 ) return false;
+	 	});	   
+	});
+	
+}
+
+
+// Entry point
+$(function() {	
+	getAssets($('#host').val(),$('#login').val(), $('#password').val(), 'query/AssetsForInDesignConnector');
+	setTimeout("onRefreshButton(false)", 5000);
+});
+
+var nb = 0;
+function onRefreshButton(doUpload) {
+	if(!doUpload){	   
+		setTimeout("onRefreshButton(false)", 5000);
+		if(nb == 0){
+	   		$("#badge").removeClass("badge1").attr("data-badge", "");
+	   	}
+	}	
+    var extScript = "$._ext_IDSN.refresh()";
+    new CSInterface().evalScript(extScript, function(result){
+		//alert(result);
+        if(result != ""){
+            result = JSON.parse(result);
+            nb = 0;
+            $.each(result.entries, function(i,link){    
+            	//alert("id: "+link.id);
+            	nuxeoClient.request('id/'+link.id).schema('file').get(
+	    			function(error, asset) {
+	    				if (error) {
+	    			    	// something went wrong
+	    			    	throw error;
+	    			  	}	
+	    			  	//alert(link.id);
+    				  	//alert(link.digest +" "+ asset.properties["file:content"].digest);
+    				  	if(link.digest != asset.properties["file:content"].digest){
+    						//alert("Asset has changed!");
+    						if(doUpload){
+	    						object = {};
+	    						object.id = asset.uid;
+	    						object.url = asset.properties["file:content"].data;
+	    						object.digest = asset.properties["file:content"].digest;
+	    						object = JSON.stringify(object);
+	    						object = escape(object); 
+	    						//alert("uploadAsset: "+object);
+	    						uploadAsset(object);
+	    						$("#badge").removeClass("badge1").attr("data-badge", "");
+	    						nb = 0;
+    						}else{
+    							nb++;
+    							//alert(nb + " " + $("#badge").attr("data-badge"));	
+    							if( $("#badge").attr("data-badge") == "" || parseInt($("#badge").attr("data-badge")) < nb){
+    								$("#badge").addClass("badge1").attr("data-badge", nb);
+    							}
+    						}
+    					}    			 	   
+    			});
+            });
+        }
+    	      
+    });
+}
+
+
+$('#query').bind("enterKey",function(e){
+	getAssets($("#host").val(),$("#login").val(), $("#password").val(), "query?query=SELECT%20*%20FROM%20Picture%20WHERE%20ecm:currentLifeCycleState%20!=%20%27deleted%27%20AND%20ecm:isCheckedInVersion%20=%200%20AND%20dc:title%20ILIKE%20?&queryParams="+$("#query").val()+"%");
+});
+$('#query').keyup(function(e){
+	if(e.keyCode == 13)
+	{
+		$(this).trigger("enterKey");
+	}
+});
+</script>
+<!--link href="./galaxy-style.css" rel="stylesheet" type="text/css"-->
+<style>
+	img{ height: 150px; float: left; padding: 5px;}
+	
+	.badge1 {
+   		position:relative;
+	}
+	.badge1[data-badge]:after {
+	   content:attr(data-badge);
+	   position:absolute;
+	   top:-10px;
+	   right:-10px;
+	   font-size:.5em;
+	   background:red;
+	   color:white;
+	   width:17px;height:17px;
+	   text-align:center;
+	   line-height:18px;
+	   border-radius:50%;
+	   box-shadow:0 0 1px #333;
+	}
+</style>
+<!--link id="ppstyle" rel="stylesheet" type="text/css" href="./style.css"-->
+<title>nuxeo InDesign Connector</title>
+</head>
+
+<body onLoad="onLoaded()">
+
+<div class="ui stackable small borderless menu">
+	<div class="item">
+		<a class="item" onclick="getAssets($('#host').val(),$('#login').val(), $('#password').val(), 'query/AssetsForInDesignConnector');$('#setting').hide();$('#content').show();$('#setting').hide();$('#content').show();" style="cursor: pointer;">
+    		<img src="./img/logo.png"  style="height:30px">
+    	</a>
+  	</div>
+	<a class="item" onclick="$('#setting').show();$('#content').hide();">
+	   <i class="setting large icon"></i>
+	</a>
+	<a class="item" onclick="onRefreshButton(true);">
+	   <i id="badge" class="refresh large icon" data-badge=""></i>
+	</a>
+	<div class="item">
+      <div class="ui icon input">
+        <input type="text" id="query" name="query" placeholder="Search...">
+        <i class="search link icon" onclick="getAssets($('#host').val(),$('#login').val(), $('#password').val(), 'query?query=SELECT%20*%20FROM%20Picture%20WHERE%20ecm:currentLifeCycleState%20!=%20%27deleted%27%20AND%20ecm:isCheckedInVersion%20=%200%20AND%20dc:title%20ILIKE%20?&queryParams='+$('#query').val()+'%')"></i>
+      </div>
+    </div>
+</div> 
+<div id="content">
+	<div id="images" class="ui two column grid"></div>
+	<!--div id="images" class="ui small images"></div -->
+</div>
+<div id="setting" style="display:none;">
+<form class="ui fluid form">
+  <div class="field">
+	<div class="ui labeled input">
+	  <div class="ui label">
+	    http://
+	  </div>
+	  <input id="host" type="text" value="localhost:8080/nuxeo/" placeholder="your nuxeo instance">
+	</div>
+	</div>
+	<div class="field">
+	<div class="ui left icon input">
+	  <input id="login" type="text" value="Administrator" placeholder="Login">
+	   <i class="User icon"></i>
+	</div>
+	</div>
+	<div class="field">
+	<div class="ui left icon input">
+	  <input id="password" type="password" value="Administrator" placeholder="Password">
+	   <i class="Lock icon"></i>
+	</div>
+	</div>
+	<button class="ui primary button" onclick="getAssets($('#host').val(),$('#login').val(), $('#password').val(), 'query/AssetsForInDesignConnector');$('#setting').hide();$('#content').show();">
+	  Save
+	</button>
+	<button class="ui button" onclick="$('#login').val(), $('#password').val(), 'query/AssetsForInDesignConnector');$('#setting').hide();$('#content').show();">
+	  Discard
+	</button>
+</form>	
+</div>
+</body>
+</html>
