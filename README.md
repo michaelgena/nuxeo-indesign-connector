@@ -74,12 +74,6 @@ Once the anonymous user is created, you need to select the folders to which you 
 
 ## How to install the nuxeo connector for inDesign
 
-## Link persistency
-Now, anytime your asset is modified within nuxeo you'll get a badge notification beside the reload icon. All you need to do is click on it and the
-new version of the asset will be imported.
-You then need to display the links panel (Window > links) and double click on the alert icon to replace the old version by the new one.
-
-
 Step 1 :
 Unzip and copy the folder package/org.nuxeo.indesignconnector :
 On Mac, into ~/Library/Application Support/Adobe/CEP/extensions
@@ -103,6 +97,12 @@ Once there click on the settings icon and fill in the following informations:
 If everything went well you should end up having a list of assets displayed.
 
 Once there, if you want to add an asset into your inDesign document you just need to click on the thumbnail.
+
+
+## Link persistency
+Now, anytime your asset is modified within nuxeo you'll get a badge notification beside the reload icon. All you need to do is click on it and the
+new version of the asset will be imported.
+You then need to display the links panel (Window > links) and double click on the alert icon to replace the old version by the new one.
 
 ## About Nuxeo
 
