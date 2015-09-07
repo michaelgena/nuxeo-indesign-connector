@@ -81,7 +81,7 @@ On Mac, into ~/Library/Application Support/Adobe/CEP/extensions
 ```
 On Windows, into %APPDATA%\Adobe\CEP\extensions
 ```
-**Step 2 :**  
+**Step 2**  
 On Mac
 - Open inDesign and go to the Scripts Panel **(Window > Utilities > Scripts)**
 - Right click on the "User" folder and click on "Reveal in Finder"
@@ -91,7 +91,7 @@ On Mac
 On Windows
 - Open the registry key **HKEY_CURRENT_USER/Software/Adobe/CSXS.4** and add a key named PlayerDebugMode, of type String, and value 1.
 
-**Step 3 :**  
+**Step 3**  
 Restart inDesign and go to **Window > Extensions > nuxeo InDesign Connector**.  
 Once there click on the settings icon and fill in the following informations:
 - url of your nuxeo instance
@@ -104,7 +104,7 @@ Once there, if you want to add an asset into your inDesign document you just nee
 ## Link persistency
 Now, anytime your asset is modified within nuxeo you'll get a badge notification beside the reload icon. All you need to do is click on it and the
 new version of the asset will be imported.
-You then need to display the links panel (Window > links) and double click on the alert icon to replace the old version by the new one.
+You then need to display the links panel (**Window > links**) and double click on the alert icon to replace the old version by the new one.
 
 ## About Nuxeo
 
