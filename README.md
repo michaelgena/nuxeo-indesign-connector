@@ -73,7 +73,7 @@ Once the anonymous user is created, you need to select the folders to which you 
 
 ## How to install the nuxeo connector for inDesign
 
- -**Step 1** 
+**Step 1**  
  Copy the folder "org.nuxeo.indesignconnector" that you'll find under the "package" folder :
 ```
 On Mac, into ~/Library/Application Support/Adobe/CEP/extensions
@@ -81,15 +81,16 @@ On Mac, into ~/Library/Application Support/Adobe/CEP/extensions
 ```
 On Windows, into %APPDATA%\Adobe\CEP\extensions
 ```
- -**Step 2 :**
-      - On Mac
-	Open inDesign and go to the Scripts Panel (Window > Utilities > Scripts)
-	Right click on the "User" folder and click on "Reveal in Finder"
-	Copy the 2 files present in the "package/Scripts" folder (EnableUnsignedExtensions.jsx and 			DisableUnsignedExtensions.jsx) into the "Scripts Panel" folder
-	Next, run the EnableUnsignedExtensions.jsx script by double clicking on it on the Scripts Panel after unfolding the "User" folder
-      - On Windows
-	Open the registry key HKEY_CURRENT_USER/Software/Adobe/CSXS.4 and add a key named PlayerDebugMode, of type String, and value 1.
-**Step 3 :**
+**Step 2 :**  
+- On Mac
+||- Open inDesign and go to the Scripts Panel **(Window > Utilities > Scripts)**
+||- Right click on the "User" folder and click on "Reveal in Finder"
+||- Copy the 2 files present in the "package/Scripts" folder **(EnableUnsignedExtensions.jsx and 			DisableUnsignedExtensions.jsx)** into the "Scripts Panel" folder
+||- Next, run the EnableUnsignedExtensions.jsx script by double clicking on it on the Scripts Panel after unfolding the "User" folder  
+- On Windows
+||- Open the registry key **HKEY_CURRENT_USER/Software/Adobe/CSXS.4** and add a key named PlayerDebugMode, of type String, and value 1.
+
+**Step 3 :**  
 Restart inDesign and go to Window > Extensions > nuxeo InDesign Connector
 Once there click on the settings icon and fill in the following informations:
 -url of your nuxeo instance
