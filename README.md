@@ -6,6 +6,7 @@ The nuxeo Connector for InDesign enables designers to import assets into an InDe
 Before starting the installation of the nuxeo connector for inDesign the following configurations must be present under nuxeo studio and imported into you nuxeo instance:
 
 1 - Enabling Cross-Origin Resource Sharing (CORS) for the REST api :
+```
 <extension target="org.nuxeo.ecm.platform.web.common.requestcontroller.service.RequestControllerService" point="corsConfig">
  <corsConfig name="fooly" allowGenericHttpRequests="true"
    allowOrigin="*"
@@ -13,8 +14,9 @@ Before starting the installation of the nuxeo connector for inDesign the followi
    <pattern>.*</pattern>
  </corsConfig>
 </extension>
-
+```
 2 - Page Provider to retrieve the default list of assets
+```
 <extension target="org.nuxeo.ecm.platform.query.api.PageProviderService"
 	point="providers">
 	<coreQueryPageProvider name="AssetsForInDesignConnector">
@@ -24,8 +26,9 @@ Before starting the installation of the nuxeo connector for inDesign the followi
 		<pageSize>100</pageSize>
 	</coreQueryPageProvider>
 </extension>
-
+```
 3 - Anonymous readonly access to assets in nuxeo
+```
 <extension target="org.nuxeo.ecm.platform.usermanager.UserService"
   point="userManager">
   <userManager>
@@ -64,7 +67,7 @@ Before starting the installation of the nuxeo connector for inDesign the followi
     </replacementChain>
   </specificAuthenticationChain>
 </extension>
-
+```
 Once the anonymous user is created, you need to select the folders to which you want him to have a read-only access
 (This is done under nuxeo instance directly)
 
