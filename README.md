@@ -82,13 +82,14 @@ On Mac, into ~/Library/Application Support/Adobe/CEP/extensions
 On Windows, into %APPDATA%\Adobe\CEP\extensions
 ```
 **Step 2 :**  
-- On Mac
-      -Open inDesign and go to the Scripts Panel **(Window > Utilities > Scripts)**
-      -Right click on the "User" folder and click on "Reveal in Finder"
-      -Copy the 2 files present in the "package/Scripts" folder **(EnableUnsignedExtensions.jsx and 			DisableUnsignedExtensions.jsx)** into the "Scripts Panel" folder
-      -Next, run the EnableUnsignedExtensions.jsx script by double clicking on it on the Scripts Panel after unfolding the "User" folder  
-- On Windows
-      -Open the registry key **HKEY_CURRENT_USER/Software/Adobe/CSXS.4** and add a key named PlayerDebugMode, of type String, and value 1.
+On Mac
+- Open inDesign and go to the Scripts Panel **(Window > Utilities > Scripts)**
+- Right click on the "User" folder and click on "Reveal in Finder"
+- Copy the 2 files present in the "package/Scripts" folder **(EnableUnsignedExtensions.jsx and 			DisableUnsignedExtensions.jsx)** into the "Scripts Panel" folder
+- Next, run the EnableUnsignedExtensions.jsx script by double clicking on it on the Scripts Panel after unfolding the "User" folder  
+
+On Windows
+- Open the registry key **HKEY_CURRENT_USER/Software/Adobe/CSXS.4** and add a key named PlayerDebugMode, of type String, and value 1.
 
 **Step 3 :**  
 Restart inDesign and go to **Window > Extensions > nuxeo InDesign Connector**.  
