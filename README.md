@@ -69,8 +69,7 @@ Before starting the installation of the nuxeo connector for inDesign the followi
 </extension>
 ```
 Once the anonymous user is created, you need to select the folders to which you want him to have a read-only access
-(This is done under nuxeo instance directly)
-
+(This is done under nuxeo instance directly).
 
 ## How to install the nuxeo connector for inDesign
 
@@ -90,7 +89,6 @@ Copy the 2 files present in the "package/Scripts" folder (EnableUnsignedExtensio
 Next, run the EnableUnsignedExtensions.jsx script by double clicking on it on the Scripts Panel after unfolding the "User" folder
 On Windows
 Open the registry key HKEY_CURRENT_USER/Software/Adobe/CSXS.4 and add a key named PlayerDebugMode, of type String, and value 1.
-
 **Step 3 :**
 Restart inDesign and go to Window > Extensions > nuxeo InDesign Connector
 Once there click on the settings icon and fill in the following informations:
