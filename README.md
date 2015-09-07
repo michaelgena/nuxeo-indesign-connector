@@ -96,8 +96,8 @@ Once there click on the settings icon and fill in the following informations:
 - url of your nuxeo instance
 - login
 - password  
-If everything went well you should end up having a list of assets displayed.
 
+If everything went well you should end up having a list of assets displayed.
 Once there, if you want to add an asset into your inDesign document you just need to click on the thumbnail.
 
 ## Link persistency
