@@ -10,131 +10,14 @@
 
 <link rel="stylesheet" type="text/css" href="./semantic-ui/dist/semantic.min.css">
 <script src="./semantic-ui/dist/semantic.min.js"></script>
+<script src="./assets.js"></script>
 <script type="text/javascript">
-
-// $(function() {
-// 	$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
-// 	  {
-// 	    tags: "autumn",
-// 	    tagmode: "any",
-// 	    format: "json"
-// 	  },
-// 	  function(data) {
-// 	    $.each(data.items, function(i,item){
-// 	      $("<div class=\"column\"><div class=\"ui segment\"><img class=\"ui fluid image\" id=\""+item.media.m+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+item.media.m+"')\" src=\""+item.media.m+"\" style=\"cursor:pointer;\"/></div></div>").appendTo("#images");
-// 	      //$("<img class=\"ui medium bordered image\" id=\""+item.media.m+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+item.media.m+"')\" src=\""+item.media.m+"\" style=\"cursor:pointer;\"/>").appendTo("#images");
-// 	      //if ( i == 8 ) return false;
-// 	    });
-// 	  });
-// });
-
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-}
-
-function drop(ev) {
-    ev.preventDefault();
-    //var data = ev.dataTransfer.getData("text");
-    //ev.target.appendChild(data);
-}
-
-var nuxeoClient;
-
-function getAssets(url, login, pwd, request){
-	//$("#images").html("<br/><br/><div class=\"ui segment\"><div class=\"ui active inverted dimmer\"><div class=\"ui text loader\">Loading</div></div><p></p></div>");	
-	nuxeoClient = new nuxeo.Client({
-	  baseURL: 'http://'+url,
-	  auth: {
-		    // optional, default to 'basic'
-		    method: 'basic',
-		    username: login,
-		    password: pwd
-		  }
-	});
-	
-	nuxeoClient.request(request).schema('file').header("X-NXContext-Category", "thumbnail").get(
-	function(error, assets) {
-	  if (error) {
-	    // something went wrong
-	    $("#images").html(error);
-	    throw error;
-	  }
-	  $("#images").html("");
-	  if(assets.entries == 0){
-		  //$("#images").html("<br/><br/><div class=\"ui segment\"><div class=\"ui active inverted dimmer\"><div class=\"ui text loader\">Loading</div></div><p></p></div>");
-	  }
-	  $.each(assets.entries, function(i,asset){
-		  $("<div class=\"column\"><div class=\"ui segment\"><img class=\"ui fluid image\" id=\""+asset.properties["file:content"].data+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"', '"+asset.properties["file:content"].digest+"', '"+asset.uid+"')\" src=\""+asset.contextParameters.thumbnail.url+"\" style=\"cursor:pointer;\"/></div></div>").appendTo("#images");
-	 	    //$("<img id=\""+asset.properties["file:content"].data+"\" draggable=\"true\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"')\" style=\"cursor:pointer;\"/>").attr("src", asset.contextParameters.thumbnail.url).appendTo("#images");
-	 	    //if ( i == 10 ) return false;
-	 	});	   
-	});
-	
-}
-
 
 // Entry point
 $(function() {	
 	getAssets($('#host').val(),$('#login').val(), $('#password').val(), 'query/AssetsForInDesignConnector');
 	setTimeout("onRefreshButton(false)", 5000);
 });
-
-var nb = 0;
-function onRefreshButton(doUpload) {
-	if(!doUpload){	   
-		setTimeout("onRefreshButton(false)", 5000);
-		if(nb == 0){
-	   		$("#badge").removeClass("badge1").attr("data-badge", "");
-	   	}
-	}	
-    var extScript = "$._ext_IDSN.refresh()";
-    new CSInterface().evalScript(extScript, function(result){
-		//alert(result);
-        if(result != ""){
-            result = JSON.parse(result);
-            nb = 0;
-            $.each(result.entries, function(i,link){    
-            	//alert("id: "+link.id);
-            	nuxeoClient.request('id/'+link.id).schema('file').get(
-	    			function(error, asset) {
-	    				if (error) {
-	    			    	// something went wrong
-	    			    	throw error;
-	    			  	}	
-	    			  	//alert(link.id);
-    				  	//alert(link.digest +" "+ asset.properties["file:content"].digest);
-    				  	if(link.digest != asset.properties["file:content"].digest){
-    						//alert("Asset has changed!");
-    						if(doUpload){
-	    						object = {};
-	    						object.id = asset.uid;
-	    						object.url = asset.properties["file:content"].data;
-	    						object.digest = asset.properties["file:content"].digest;
-	    						object = JSON.stringify(object);
-	    						object = escape(object); 
-	    						//alert("uploadAsset: "+object);
-	    						uploadAsset(object);
-	    						$("#badge").removeClass("badge1").attr("data-badge", "");
-	    						nb = 0;
-    						}else{
-    							nb++;
-    							//alert(nb + " " + $("#badge").attr("data-badge"));	
-    							if( $("#badge").attr("data-badge") == "" || parseInt($("#badge").attr("data-badge")) < nb){
-    								$("#badge").addClass("badge1").attr("data-badge", nb);
-    							}
-    						}
-    					}    			 	   
-    			});
-            });
-        }
-    	      
-    });
-}
-
 
 $('#query').bind("enterKey",function(e){
 	getAssets($("#host").val(),$("#login").val(), $("#password").val(), "query?query=SELECT%20*%20FROM%20Picture%20WHERE%20ecm:currentLifeCycleState%20!=%20%27deleted%27%20AND%20ecm:isCheckedInVersion%20=%200%20AND%20dc:title%20ILIKE%20?&queryParams="+$("#query").val()+"%");
@@ -146,7 +29,6 @@ $('#query').keyup(function(e){
 	}
 });
 </script>
-<!--link href="./galaxy-style.css" rel="stylesheet" type="text/css"-->
 <style>
 	img{ height: 150px; float: left; padding: 5px;}
 	
