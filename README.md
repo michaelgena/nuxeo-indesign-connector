@@ -3,7 +3,7 @@
 The nuxeo Connector for InDesign enables designers to import assets into an InDesign layout directly from nuxeo.
 
 ## Prerequisites
-Before starting the installation of the nuxeo connector for inDesign the following configurations must be present under nuxeo studio and imported into you nuxeo instance:
+Before starting the installation of the nuxeo connector for inDesign you need to install a marketplace package containing the following configurations into you nuxeo instance:
 
 1 - Enabling Cross-Origin Resource Sharing (CORS) for the REST api :
 ```
@@ -68,7 +68,12 @@ Before starting the installation of the nuxeo connector for inDesign the followi
   </specificAuthenticationChain>
 </extension>
 ```
-Once the anonymous user is created, you need to select the folders to which you want him to have a read-only access
+In order to install the above extensions go to the sub-folder **nuxeo-indesign-connector** and build the marketplace package using the following command line:
+```
+mvn clean install
+```
+You will end up with a zip containing the marketplace package located here ***/marketplace-nuxeo-indesign-connector/target/marketplace-nuxeo-indesign-connector-1.0-SNAPSHOT.zip***.
+Once you installed the package, you need to select the folders to which you want the Anonymous user have a read-only access
 (This is done under nuxeo instance directly).
 
 ## How to install the nuxeo connector for inDesign
