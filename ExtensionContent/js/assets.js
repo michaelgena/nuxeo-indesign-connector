@@ -1,29 +1,28 @@
-var nuxeoClient;
-var nb = 0;
-
-function getAssets(url, login, pwd, request){
-	
+function getAssets(request){
+	$("#images").html("");
+	$("#main-message").hide();
+	$("#loader").show();
 	nuxeoClient = new nuxeo.Client({
-	  baseURL: 'http://'+url,
-	  auth: {
-		    // optional, default to 'basic'
-		    method: 'basic',
-		    username: login,
-		    password: pwd
-		  }
+	  baseURL: host
 	});
-	
-	nuxeoClient.request(request).schema('file').header("X-NXContext-Category", "thumbnail").get(
+	nuxeoClient.request(request).schema('file').header("X-Authentication-Token",token).header("X-NXContext-Category","thumbnail").get(
 	function(error, assets) {
-	  if (error) {
-	    // something went wrong
-	    $("#images").html(error);
-	    throw error;
-	  }
-	  $("#images").html("");
-	 
-	  $.each(assets.entries, function(i,asset){
-		  $("<div class=\"column\"><div class=\"ui segment\"><img class=\"ui fluid image\" id=\""+asset.properties["file:content"].data+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"', '"+asset.properties["file:content"].digest+"', '"+asset.uid+"')\" src=\""+asset.contextParameters.thumbnail.url+"\" style=\"cursor:pointer;\"/></div></div>").appendTo("#images");
+			
+		if (error) {
+			// something went wrong	
+			$("#loader").hide();
+			$("#main-message").show();
+			$("#main-message").html("<p>"+error+"</p>");
+			throw error;
+		}
+		if(assets == null || assets.entries == null || assets.entries == 0){
+			$("#loader").hide();
+			$("#main-message").show();
+		}
+ 
+		$.each(assets.entries, function(i,asset){
+			$("#loader").hide();
+			$("<div class=\"column\"><div class=\"ui segment\"><img class=\"ui fluid image\" id=\""+asset.properties["file:content"].data+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"', '"+asset.properties["file:content"].digest+"', '"+asset.uid+"')\" src=\""+asset.contextParameters.thumbnail.url+"\" style=\"cursor:pointer;\"/></div></div>").appendTo("#images");
 	 	});	   
 	});
 	
@@ -43,8 +42,7 @@ function onRefreshButton(doUpload) {
             result = JSON.parse(result);
             nb = 0;
             $.each(result.entries, function(i,link){    
-            	
-            	nuxeoClient.request('id/'+link.id).schema('file').get(
+            	nuxeoClient.request('id/'+link.id).header("X-Authentication-Token",token).schema('file').get(
 	    			function(error, asset) {
 	    				if (error) {
 	    			    	// something went wrong
