@@ -101,14 +101,10 @@ $('#query').keyup(function(e){
   <p>Not authenticated. Please connect to a nuxeo instance to retrieve your assets.</p>
 </div>
 <div id="positive-message" class="ui positive message" style="display: none;">
-  <i class="close icon"></i>
   <div class="header">
     Authenticated
   </div>
   <p id="host-message"></p>
-  <button type="button" class="ui primary button" onclick="$('#form').show();">
-	  Reconnect
-  </button>
   <button type="button" class="ui red button" onclick="revokeToken();">
 	  Revoke
   </button>
@@ -136,9 +132,6 @@ $('#query').keyup(function(e){
 	</div>
 	<button type="button" class="ui primary button" onclick="generateToken($('#host').val(),$('#login').val(), $('#password').val());">
 	  Connect
-	</button>
-	<button class="ui button" onclick="$('#setting').hide();$('#content').show();">
-	  Discard
 	</button>
 </form>	
 </div>
