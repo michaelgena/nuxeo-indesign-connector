@@ -70,13 +70,19 @@ Before starting the installation of the nuxeo connector for inDesign you need to
 ```
 In order to install the above extensions go to the sub-folder **nuxeo-indesign-connector** and build the marketplace package using the following command line:
 ```
-mvn clean install
+mvn install
 ```
 You will end up with a zip containing the marketplace package located here ***/marketplace-nuxeo-indesign-connector/target/marketplace-nuxeo-indesign-connector-1.0-SNAPSHOT.zip***.
 Once you installed the package into your nuxeo instance, you need to select the folders to which you want the ***Guest User*** to have a read-only access
 (This is done under nuxeo instance directly).
 
 ## How to install the nuxeo connector for inDesign
+
+To start with, go to the root folder of the project and run the following command line:
+```
+mvn install
+```
+This will copy all the necessary files for the inDesign plugin under the "package" folder.
 
 **Step 1**  
  Copy the folder "org.nuxeo.indesignconnector" that you'll find under the "package" folder :
