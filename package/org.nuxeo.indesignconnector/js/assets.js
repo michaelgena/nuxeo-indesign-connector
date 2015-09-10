@@ -28,6 +28,14 @@ function getAssets(request){
 	
 }
 
+function runSearch(query){
+	$('#content').show();
+	$('#setting').hide();
+	if(query.length>0){
+		getAssets("query?query=SELECT%20*%20FROM%20Picture%20WHERE%20ecm:currentLifeCycleState%20!=%20%27deleted%27%20AND%20ecm:isCheckedInVersion%20=%200%20AND%20dc:title%20ILIKE%20?&queryParams="+query+"%");
+	}
+}
+
 function onRefreshButton(doUpload) {
 	if(!doUpload){	   
 		setTimeout("onRefreshButton(false)", 5000);
@@ -35,6 +43,9 @@ function onRefreshButton(doUpload) {
 	   		$("#badge").removeClass("badge1").attr("data-badge", "");
 	   	}
 	}	
+	if(token == null || token == ""){
+		return;
+	}
     var extScript = "$._ext_IDSN.refresh()";
     new CSInterface().evalScript(extScript, function(result){
 		
