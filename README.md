@@ -81,7 +81,7 @@ Once you installed the package into your nuxeo instance, you need to select the 
 **Step 1**  
  Copy the folder "org.nuxeo.indesignconnector" that you'll find under the "package" folder :
 ```
-On Mac, into ~/Library/Application Support/Adobe/CEP/extensions
+On Mac, into ~/Library/Application\ Support/Adobe/CEP/extensions
 ```
 ```
 On Windows, into %APPDATA%\Adobe\CEP\extensions
