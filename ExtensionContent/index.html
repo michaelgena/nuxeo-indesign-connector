@@ -24,16 +24,6 @@ $(function() {
 	setTimeout("onRefreshButton(false)", 5000);
 });
 
-$('#query').bind("enterKey",function(e){
-	getAssets("query?query=SELECT%20*%20FROM%20Picture%20WHERE%20ecm:currentLifeCycleState%20!=%20%27deleted%27%20AND%20ecm:isCheckedInVersion%20=%200%20AND%20dc:title%20ILIKE%20?&queryParams="+$("#query").val()+"%");
-});
-$('#query').keyup(function(e){
-	if(e.keyCode == 13)
-	{
-		$(this).trigger("enterKey");
-	}
-});
-
 </script>
 <style>
 	img{ height: 150px; float: left; padding: 5px;}
@@ -76,20 +66,16 @@ $('#query').keyup(function(e){
 	</a>
 	<div class="item">
       <div class="ui icon input">
-        <input type="text" id="query" name="query" placeholder="Search...">
-        <i class="search link icon" onclick="getAssets('query?query=SELECT%20*%20FROM%20Picture%20WHERE%20ecm:currentLifeCycleState%20!=%20%27deleted%27%20AND%20ecm:isCheckedInVersion%20=%200%20AND%20dc:title%20ILIKE%20?&queryParams='+$('#query').val()+'%')"></i>
+        <input type="text" id="query" onkeyup="runSearch(this.value)" name="query" placeholder="Search...">
+        <i class="search link icon" onclick="runSearch($('#query').val())"></i>
       </div>
     </div>
 </div> 
 <div id="content">
 	<div id="loader" class="ui segment" style="display:none;">
-	  <div class="ui active inverted dimmer">
-	    <div class="ui medium text loader">Loading</div>
-	  </div>
-	  <p></p>
-	  <p></p>
-	  <p></p>
-	  <p></p>
+		<p></p>
+		<div class="ui active loader"></div>
+		<p></p>
 	</div>
 	<div id="main-message" class="ui visible message" style="display:none;">
   		<p>No asset to display.</p>
