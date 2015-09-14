@@ -96,6 +96,26 @@
       <patternset refid="nuxeo-indesign-connector.versus." />
     </unzip>
 
+      <!-- Generate install.xml file -->
+      <!-- See documentation at http://doc.nuxeo.com/x/IgIz -->
+      <var name="install.content" value="&lt;install&gt;" />
+      <var name="install.content"
+           value="${install.content}${line.separator}
+    &lt;update file=&quot;${package.root}/install/bundles&quot; todir=&quot;${env.bundles}&quot; /&gt;" />
+      <if>
+        <available file="${outdir}/marketplace/install/lib" />
+        <then>
+          <var name="install.content"
+               value="${install.content}${line.separator}
+    &lt;update file=&quot;${package.root}/install/lib&quot; todir=&quot;${env.lib}&quot; /&gt;" />
+        </then>
+      </if>
+      <var name="install.content"
+           value="${install.content}${line.separator}
+  &lt;/install&gt;${line.separator}" />
+      <echo level="info" file="${outdir}/marketplace/install.xml"
+            message="${install.content}" />
+
     <zip destfile="${outdir}/${maven.project.artifactId}-${marketplace.nuxeo-indesign-connector.version}.zip"
          basedir="${outdir}/marketplace" />
     <artifact:attach file="${outdir}/${maven.project.artifactId}-${marketplace.nuxeo-indesign-connector.version}.zip"
