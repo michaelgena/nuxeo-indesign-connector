@@ -2,7 +2,7 @@
 
 The nuxeo Connector for InDesign enables designers to import assets into an InDesign layout directly from nuxeo.
 
-## Prerequisites
+## Prerequisites...
 Before starting the installation of the nuxeo connector for inDesign you need to install a marketplace package containing the following configurations into you nuxeo instance:
 
 1 - Enabling Cross-Origin Resource Sharing (CORS) for the REST api :
