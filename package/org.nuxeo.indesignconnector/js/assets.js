@@ -1,11 +1,11 @@
-function getAssets(request){
+function getAssets(request, query){
 	$("#images").html("");
 	$("#main-message").hide();
 	$("#loader").show();
 	nuxeoClient = new nuxeo.Client({
 	  baseURL: host
 	});
-	nuxeoClient.request(request).schema('file').header("X-Authentication-Token",token).header("X-NXContext-Category","thumbnail").get(
+	nuxeoClient.request(request).schema('*').header("X-Authentication-Token",token).header("X-NXContext-Category","thumbnail").get(
 	function(error, assets) {
 			
 		if (error) {
@@ -18,21 +18,28 @@ function getAssets(request){
 		if(assets == null || assets.entries == null || assets.entries == 0){
 			$("#loader").hide();
 			$("#main-message").show();
+			$("#main-message").html("<p>No asset to display.</p>");
 		}
- 
+		
 		$.each(assets.entries, function(i,asset){
 			$("#loader").hide();
-			$("<div class=\"column\"><div class=\"ui segment\"><img class=\"ui fluid image\" id=\""+asset.properties["file:content"].data+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"', '"+asset.properties["file:content"].digest+"', '"+asset.uid+"')\" src=\""+asset.contextParameters.thumbnail.url+"\" style=\"cursor:pointer;\"/></div></div>").appendTo("#images");
+			$("<div class=\"column\"><div class=\"ui segment\"><img class=\"ui fluid image\" id=\""+asset.properties["file:content"].data+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"', '"+asset.properties["file:content"].digest+"', '"+asset.uid+"')\" src=\""+asset.contextParameters.thumbnail.url+"\" style=\"cursor:pointer;\"/></div></div>").appendTo("#images");						
 	 	});	   
 	});
 	
 }
 
 function runSearch(query){
+	query = encodeURIComponent("%"+query+"%");
+	folder = $('#folder:checked').val() == "on" ? true:false;
 	$('#content').show();
 	$('#setting').hide();
 	if(query.length>0){
-		getAssets("query?query=SELECT%20*%20FROM%20Picture%20WHERE%20ecm:currentLifeCycleState%20!=%20%27deleted%27%20AND%20ecm:isCheckedInVersion%20=%200%20AND%20dc:title%20ILIKE%20?&queryParams="+query+"%");
+		if(folder == null || folder == false ){
+			getAssets("query/QueryAssetsForInDesignConnector?queryParams="+query);
+		}else{
+			getAssets("query/QueryAssetsWithChildrenForInDesignConnector?queryParams="+query);
+		}
 	}
 }
 
