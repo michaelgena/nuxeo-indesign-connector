@@ -70,11 +70,15 @@ $(function() {
         <i class="search link icon" onclick="runSearch($('#query').val())"></i>
 	  </div>
     </div>
-    <div class="item">
-      <div class="ui icon input">
-      	<input id="folder" type="checkbox" name="folder" onchange="runSearch($('#query').val())">
-		<label>&nbsp;Based on folder</label>
-	  </div>
+    <div class="item">    	
+    	<div class="ui icon input">
+    		<input type="radio" name="searchType" value="document" checked="checked" onchange="runSearch($('#query').val())">
+  			<label>&nbsp;On document</label>
+		</div>
+		<div>
+			<input type="radio" name="searchType" value="folder" onchange="runSearch($('#query').val())">
+			<label>&nbsp;On folder</label>
+	  	</div>
     </div>
 </div> 
 <div id="content">

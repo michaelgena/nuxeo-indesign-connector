@@ -5,7 +5,7 @@ function getAssets(request, query){
 	nuxeoClient = new nuxeo.Client({
 	  baseURL: host
 	});
-	nuxeoClient.request(request).schema('*').header("X-Authentication-Token",token).header("X-NXContext-Category","thumbnail").get(
+	nuxeoClient.request(request).schema('file').header("X-Authentication-Token",token).header("X-NXContext-Category","thumbnail").get(
 	function(error, assets) {
 			
 		if (error) {
@@ -31,11 +31,11 @@ function getAssets(request, query){
 
 function runSearch(query){
 	query = encodeURIComponent("%"+query+"%");
-	folder = $('#folder:checked').val() == "on" ? true:false;
+	searchType = $("input[name=searchType]:checked").val();
 	$('#content').show();
 	$('#setting').hide();
 	if(query.length>0){
-		if(folder == null || folder == false ){
+		if(searchType == "document") {
 			getAssets("query/QueryAssetsForInDesignConnector?queryParams="+query);
 		}else{
 			getAssets("query/QueryAssetsWithChildrenForInDesignConnector?queryParams="+query);
