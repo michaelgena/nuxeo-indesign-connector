@@ -5,7 +5,7 @@ The connector is divided into 2 parts, a server side and a client side.
 
 ## Server side plugin
 
-1 - How to build
+1 - How to build  
 Go to the sub-folder **nuxeo-indesign-connector** and build the marketplace package using the following command line:
 ```
 mvn install
