@@ -11,7 +11,7 @@ Go to the sub-folder **nuxeo-indesign-connector** and build the marketplace pack
 mvn install
 ```
 
-2 - How to install
+2 - How to install  
 You will end up with a zip containing the marketplace package located here:  ***/marketplace-nuxeo-indesign-connector/target/marketplace-nuxeo-indesign-connector-1.0-SNAPSHOT.zip***.
 Once you installed the package into your nuxeo instance, you need to select the folders to which you want the ***Guest User*** to have a read-only access (This is done under nuxeo instance directly).
 
