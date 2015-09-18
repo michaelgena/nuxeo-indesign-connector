@@ -5,28 +5,28 @@ The connector is divided into 2 parts, a server side and a client side.
 
 ## Server side plugin
 
-1 - How to build  
+**How to build**  
 Go to the sub-folder **nuxeo-indesign-connector** and build the marketplace package using the following command line:
 ```
 mvn install
 ```
 
-2 - How to install  
+**How to install**  
 You will end up with a zip containing the marketplace package located here:  ***/marketplace-nuxeo-indesign-connector/target/marketplace-nuxeo-indesign-connector-1.0-SNAPSHOT.zip***.
 Once you installed the package into your nuxeo instance, you need to select the folders to which you want the ***Guest User*** to have a read-only access (This is done under nuxeo instance directly).
 
 
 ## Client side Plugin
 
-1 - How to build  
+**How to build**  
 Go to the root folder of the project and run the following command line:
 ```
 mvn install
 ```
 This will copy all the necessary files for the inDesign plugin under the "package" folder.
 
-2 - How to install  
-**Step 1**  
+**How to install**  
+Step 1  
  Copy the folder "org.nuxeo.indesignconnector" that you'll find under the "package" folder :
 ```
 On Mac, into ~/Library/Application\ Support/Adobe/CEP/extensions
@@ -34,7 +34,7 @@ On Mac, into ~/Library/Application\ Support/Adobe/CEP/extensions
 ```
 On Windows, into %APPDATA%\Adobe\CEP\extensions
 ```
-**Step 2**  
+Step 2  
 On Mac
 - Open inDesign and go to the Scripts Panel **(Window > Utilities > Scripts)**
 - Right click on the "User" folder and click on "Reveal in Finder"
@@ -44,7 +44,7 @@ On Mac
 On Windows
 - Open the registry key **HKEY_CURRENT_USER/Software/Adobe/CSXS.4** and add a key named PlayerDebugMode, of type String, and value 1.
 
-**Step 3**  
+Step 3  
 Restart inDesign and go to **Window > Extensions > nuxeo InDesign Connector**.  
 Once there click on the settings icon and fill in the following informations:
 - url of your nuxeo instance
