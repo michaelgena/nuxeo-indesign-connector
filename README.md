@@ -18,14 +18,14 @@ Once you installed the package into your nuxeo instance, you need to select the 
 
 ## Client side Plugin
 
-1 - How to build
-To start with, go to the root folder of the project and run the following command line:
+1 - How to build  
+Go to the root folder of the project and run the following command line:
 ```
 mvn install
 ```
 This will copy all the necessary files for the inDesign plugin under the "package" folder.
 
-2 - How to install
+2 - How to install  
 **Step 1**  
  Copy the folder "org.nuxeo.indesignconnector" that you'll find under the "package" folder :
 ```
