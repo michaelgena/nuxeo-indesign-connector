@@ -1,89 +1,31 @@
 # nuxeo-indesign-connector
 
 The nuxeo Connector for InDesign enables designers to import assets into an InDesign layout directly from nuxeo.
+The connector is divided into 2 parts, a server side and a client side.
 
-## Prerequisites...
-Before starting the installation of the nuxeo connector for inDesign you need to install a marketplace package containing the following configurations into you nuxeo instance:
+## Server side plugin
 
-1 - Enabling Cross-Origin Resource Sharing (CORS) for the REST api :
-```
-<extension target="org.nuxeo.ecm.platform.web.common.requestcontroller.service.RequestControllerService" point="corsConfig">
- <corsConfig name="fooly" allowGenericHttpRequests="true"
-   allowOrigin="*"
-   allowSubdomains="true">
-   <pattern>.*</pattern>
- </corsConfig>
-</extension>
-```
-2 - Page Provider to retrieve the default list of assets
-```
-<extension target="org.nuxeo.ecm.platform.query.api.PageProviderService"
-	point="providers">
-	<coreQueryPageProvider name="AssetsForInDesignConnector">
-		<pattern quoteParameters="true" escapeParameters="true">
-			SELECT * FROM Picture WHERE ecm:currentLifeCycleState != 'deleted' AND ecm:isCheckedInVersion = 0
-      	</pattern>
-		<pageSize>100</pageSize>
-	</coreQueryPageProvider>
-</extension>
-```
-3 - Anonymous readonly access to assets in nuxeo
-```
-<extension target="org.nuxeo.ecm.platform.usermanager.UserService"
-  point="userManager">
-  <userManager>
-    <!-- Add anonymous user -->
-    <users>
-      <anonymousUser id="Guest">
-        <property name="firstName">Guest</property>
-        <property name="lastName">User</property>
-      </anonymousUser>
-    </users>
-
-    <!-- Add anonymous user to members group automatically -->
-    <defaultGroup>members</defaultGroup>
-  </userManager>
-</extension>
-
-<extension
-    target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService"
-    point="chain">
-  <authenticationChain>
-    <plugins>
-      <plugin>BASIC_AUTH</plugin>
-      <plugin>FORM_AUTH</plugin>
-    </plugins>
-  </authenticationChain>
-</extension>
-
-<extension target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService" point="specificChains">
-<specificAuthenticationChain name="Anonymous">
-    <urlPatterns>
-      <url>(.*)/nxbigfile/*</url>
-      <url>(.*)/nxthumb/*</url>
-    </urlPatterns>
-    <replacementChain>
-    <plugin>ANONYMOUS_AUTH</plugin>
-    </replacementChain>
-  </specificAuthenticationChain>
-</extension>
-```
-In order to install the above extensions go to the sub-folder **nuxeo-indesign-connector** and build the marketplace package using the following command line:
+1 - How to build
+Go to the sub-folder **nuxeo-indesign-connector** and build the marketplace package using the following command line:
 ```
 mvn install
 ```
-You will end up with a zip containing the marketplace package located here ***/marketplace-nuxeo-indesign-connector/target/marketplace-nuxeo-indesign-connector-1.0-SNAPSHOT.zip***.
-Once you installed the package into your nuxeo instance, you need to select the folders to which you want the ***Guest User*** to have a read-only access
-(This is done under nuxeo instance directly).
 
-## How to install the nuxeo connector for inDesign
+2 - How to install
+You will end up with a zip containing the marketplace package located here:  ***/marketplace-nuxeo-indesign-connector/target/marketplace-nuxeo-indesign-connector-1.0-SNAPSHOT.zip***.
+Once you installed the package into your nuxeo instance, you need to select the folders to which you want the ***Guest User*** to have a read-only access (This is done under nuxeo instance directly).
 
+
+## Client side Plugin
+
+1 - How to build
 To start with, go to the root folder of the project and run the following command line:
 ```
 mvn install
 ```
 This will copy all the necessary files for the inDesign plugin under the "package" folder.
 
+2 - How to install
 **Step 1**  
  Copy the folder "org.nuxeo.indesignconnector" that you'll find under the "package" folder :
 ```
