@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<component name="nuxeo-indesign-connector-contrib" version="1.0.0">
+	<extension target="org.nuxeo.ecm.platform.web.common.requestcontroller.service.RequestControllerService" point="corsConfig">
+	 <corsConfig name="fooly" allowGenericHttpRequests="true"
+	   allowOrigin="*"
+	   allowSubdomains="true">
+	   <pattern>.*</pattern>
+	 </corsConfig>
+	</extension>
+	<extension target="org.nuxeo.ecm.platform.query.api.PageProviderService"
+	    point="providers">
+	    <coreQueryPageProvider name="AssetsForInDesignConnector">
+	        <pattern quoteParameters="true" escapeParameters="true">
+	            SELECT * FROM Document WHERE ecm:mixinType = 'Picture' AND ecm:currentLifeCycleState != 'deleted' AND ecm:isCheckedInVersion = 0
+	        </pattern>
+	        <pageSize>100</pageSize>
+	    </coreQueryPageProvider>
+	</extension>
+	<extension target="org.nuxeo.ecm.platform.query.api.PageProviderService"
+	    point="providers">
+	    <coreQueryPageProvider name="QueryAssetsForInDesignConnector">
+	        <pattern quoteParameters="true" escapeParameters="true">
+	           SELECT * FROM Document WHERE ecm:mixinType = 'Picture' AND ecm:currentLifeCycleState != 'deleted' AND ecm:isCheckedInVersion = 0 AND dc:title ILIKE ?
+	        </pattern>
+	        <pageSize>100</pageSize>
+	    </coreQueryPageProvider>
+	</extension>
+	<extension target="org.nuxeo.ecm.platform.query.api.PageProviderService"
+	    point="providers">
+	    <genericPageProvider name="QueryAssetsWithChildrenForInDesignConnector" class="org.nuxeo.indesignconnector.query.ChildrenPageProvider">
+	        <pattern quoteParameters="true" escapeParameters="true">
+	           SELECT * FROM Document WHERE ecm:mixinType = 'Folderish' AND dc:title ILIKE ?
+	        </pattern>
+	        <pageSize>100</pageSize>	        
+	    </genericPageProvider>
+	</extension>
+</component>
