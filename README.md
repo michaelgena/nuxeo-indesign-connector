@@ -6,7 +6,7 @@ The connector is divided into 2 parts, a server side and a client side.
 ## Server side plugin
 
 **How to build**  
-Go to the sub-folder **nuxeo-indesign-connector** and build the marketplace package using the following command line:
+Go to the sub-folder **nuxeo-indesign-connector-server** and build the marketplace package using the following command line:
 ```
 mvn install
 ```
@@ -19,15 +19,15 @@ Once you installed the package into your nuxeo instance, you need to select the 
 ## Client side Plugin
 
 **How to build**  
-Go to the root folder of the project and run the following command line:
+Go to the **nuxeo-indesign-connector-client** folder and run the following command line:
 ```
 mvn install
 ```
-This will copy all the necessary files for the inDesign plugin under the "package" folder.
+This will copy all the necessary files for the inDesign plugin under the **package** folder.
 
 **How to install**  
 Step 1  
- Copy the folder "org.nuxeo.indesignconnector" that you'll find under the "package" folder :
+ Copy the folder "org.nuxeo.indesignconnector" that you'll find under the **package** folder :
 ```
 On Mac, into ~/Library/Application\ Support/Adobe/CEP/extensions
 ```
