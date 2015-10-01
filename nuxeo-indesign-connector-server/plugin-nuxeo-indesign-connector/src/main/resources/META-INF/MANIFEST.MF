@@ -10,4 +10,4 @@ Bundle-Vendor: Nuxeo
 Nuxeo-Component: OSGI-INF/extensions/cors.xml,
  OSGI-INF/extensions/assets-for-indesign-connector.xml,
  OSGI-INF/extensions/query-assets-for-indesign-connector.xml,
- OSGI-INF/extensions/assets-with-children-for-indesign-connector.xml
+ OSGI-INF/extensions/query-assets-with-children-for-indesign-connector.xml
