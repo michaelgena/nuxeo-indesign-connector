@@ -1,5 +1,5 @@
 # nuxeo-indesign-connector
-<img src="https://github.com/nuxeo-sandbox/nuxeo-indesign-connector/edit/master/Screen-Shot.png"/>  
+<img src="Screen-Shot.png"/>  
 The nuxeo Connector for InDesign enables designers to import assets into an InDesign layout directly from nuxeo.
 The connector is divided into 2 parts, a server side and a client side.
 
