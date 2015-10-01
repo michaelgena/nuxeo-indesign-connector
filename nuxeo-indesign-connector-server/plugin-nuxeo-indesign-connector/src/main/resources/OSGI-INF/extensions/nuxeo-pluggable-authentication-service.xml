@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-	<component name="nuxeo-pluggable-authentication-service-contrib" version="1.0.0">
-		<require>org.nuxeo.ecm.login.token.authentication.contrib</require>
-		<authenticationPlugin class="org.nuxeo.ecm.platform.ui.web.auth.token.custom.TokenAuthenticatorForHttp" name="TOKEN_AUTH"/>
-	</component>

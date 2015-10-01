@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<component name="nuxeo-indesign-connector-cors-contrib" version="1.0.0">
+		<extension target="org.nuxeo.ecm.platform.web.common.requestcontroller.service.RequestControllerService" point="corsConfig">
+		 <corsConfig name="fooly" allowGenericHttpRequests="true"
+		   allowOrigin="*"
+		   allowSubdomains="true">
+		   <pattern>.*</pattern>
+		 </corsConfig>
+		</extension>
+	</component>

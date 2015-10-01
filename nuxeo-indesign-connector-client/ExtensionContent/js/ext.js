@@ -1,3 +1,19 @@
+/*
+ * (C) Copyright 2006-2015 Nuxeo SA (http://nuxeo.com/) and contributors.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser General Public License
+ * (LGPL) version 2.1 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl.html
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * Contributors:
+ *     Michael Gena
+ */
 
 function onLoaded() {
     var csInterface = new CSInterface();
@@ -25,8 +41,8 @@ function onLoaded() {
     // Update the color of the panel when the theme color of the product changed.
     csInterface.addEventListener(CSInterface.THEME_COLOR_CHANGED_EVENT, onAppThemeColorChanged);
 	
-    addPlugPlugSuccessEventListener();
-    loadPlugPlugLibrary();
+    //addPlugPlugSuccessEventListener();
+    //loadPlugPlugLibrary();
 }
 
 //This function takes care of loading the PlugPlugExternalLibrary object on
@@ -206,15 +222,11 @@ function onClickButton(url, digest, id) {
 	object.id = id;
 	object = JSON.stringify(object);
 	object = escape(object);
-    //var extScript = "$._ext_IDSN.run('"+url+"', '"+digest+"')";
-	//alert(object);
 	var extScript = "$._ext_IDSN.run('"+object+"')";
 	evalScript(extScript);
 }
 
 function uploadAsset(object) {
-	//object = JSON.stringify(object);
-	//object = escape(object);
 	var extScript = "$._ext_IDSN.upload('"+object+"')";
 	evalScript(extScript);
 }

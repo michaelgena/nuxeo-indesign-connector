@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<component name="nuxeo-indesign-connector-queryassetswithchildrenforindesignconnector-contrib" version="1.0.0">
+		<extension target="org.nuxeo.ecm.platform.query.api.PageProviderService"
+		    point="providers">
+		    <genericPageProvider name="QueryAssetsWithChildrenForInDesignConnector" class="org.nuxeo.indesignconnector.query.ChildrenPageProvider">
+		        <pattern quoteParameters="true" escapeParameters="true">
+		           SELECT * FROM Document WHERE ecm:mixinType = 'Folderish' AND dc:title ILIKE ?
+		        </pattern>
+		        <pageSize>100</pageSize>	        
+		    </genericPageProvider>
+		</extension>
+</component>
