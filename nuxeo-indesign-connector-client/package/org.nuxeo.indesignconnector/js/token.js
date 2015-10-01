@@ -36,20 +36,7 @@ function generateToken(host, login, password){
 	});
 }
 
-function initializeToken(){	
-	
-//	token = "b664b8ce-e443-48c4-9c16-8f1219c73fb6";
-//	host = "http://localhost:8080/nuxeo/";
-//	login = "Administrator";
-//	getAssets("query/AssetsForInDesignConnector");
-//    $("#message").hide();
-//    $('#form').hide();
-//	$("#positive-message").show();
-//	$("#host-message").html("on "+host+" as "+login);
-//	$("#host-message").show();
-	
-	//document.cookie="X-Authentication-Token="+token;
-	
+function initializeToken(){		
 	var extScript = "$._ext_IDSN.getToken()";
     new CSInterface().evalScript(extScript, function(result){		
         if(result != ""){
@@ -62,7 +49,6 @@ function initializeToken(){
             	$("#message").show();
             	$('#form').show();
             }else{
-            	//$("#url").attr("src", host+"login.jsp");
             	getAssets("query/AssetsForInDesignConnector");
                 $("#message").hide();
                 $('#form').hide();

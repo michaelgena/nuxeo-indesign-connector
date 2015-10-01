@@ -23,10 +23,29 @@ function getAssets(request, query){
 		
 		$.each(assets.entries, function(i,asset){
 			$("#loader").hide();
-			$("<div class=\"column\"><div class=\"ui segment\"><img class=\"ui fluid image\" id=\""+asset.properties["file:content"].data+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"', '"+asset.properties["file:content"].digest+"', '"+asset.uid+"')\" src=\""+asset.contextParameters.thumbnail.url+"\" style=\"cursor:pointer;\"/></div></div>").appendTo("#images");						
+			getThumbnail(asset.contextParameters.thumbnail.url, asset.properties["file:content"].data);
+			$("<div class=\"column\"><div class=\"ui segment\"><img class=\"ui fluid image\" id=\""+asset.properties["file:content"].data+"\" draggable=\"false\" ondragstart=\"drag(event)\" onclick=\"onClickButton('"+asset.properties["file:content"].data+"', '"+asset.properties["file:content"].digest+"', '"+asset.uid+"')\" src=\"\" style=\"cursor:pointer;\"/></div></div>").appendTo("#images");						
 	 	});	   
 	});
 	
+}
+
+function getThumbnail(url, imgID){
+	var oReq = new XMLHttpRequest();
+	oReq.open("GET", url, true);
+	oReq.setRequestHeader("X-Authentication-Token", token);
+	// use multiple setRequestHeader calls to set multiple values
+	oReq.responseType = "arraybuffer";
+	oReq.onload = function (oEvent) {
+	  var arrayBuffer = oReq.response; // Note: not oReq.responseText
+	  if (arrayBuffer) {
+	    var u8 = new Uint8Array(arrayBuffer);
+	    var b64encoded = btoa(String.fromCharCode.apply(null, u8));
+	    var mimetype="image/png"; // or whatever your image mime type is
+	    document.getElementById(imgID).src="data:"+mimetype+";base64,"+b64encoded;
+	  }
+	};
+	oReq.send(null);
 }
 
 function runSearch(query){
