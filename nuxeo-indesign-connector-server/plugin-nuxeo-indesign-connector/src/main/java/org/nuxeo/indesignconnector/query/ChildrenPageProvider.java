@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
+import org.nuxeo.ecm.core.api.impl.DocumentModelListImpl;
 import org.nuxeo.ecm.platform.query.nxql.CoreQueryDocumentPageProvider;
 
 /**
@@ -40,7 +41,7 @@ public class ChildrenPageProvider extends CoreQueryDocumentPageProvider {
         	  String finalNxql = "SELECT * FROM Document WHERE ecm:mixinType = 'Picture' AND " + where + " AND ecm:isVersion = 0 AND  ecm:currentLifeCycleState != 'deleted'";          
         	  return getCoreSession().query(finalNxql);
           }else{
-        	  return null;
+        	  return new DocumentModelListImpl();
           }
        
     }
