@@ -25,6 +25,7 @@
 <script src="./lib/jquery-1.9.1.js"></script>
 <script src="./lib/nuxeo.js"></script>
 <link rel="stylesheet" type="text/css" href="./semantic-ui/dist/semantic.min.css">
+<link rel="stylesheet" type="text/css" href="./style.css">
 <script src="./semantic-ui/dist/semantic.min.js"></script>
 <script src="./js/assets.js"></script>
 <script src="./js/token.js"></script>
@@ -34,17 +35,12 @@ var token = "";
 var nuxeoClient;
 var nb = 0;
 
-// Entry point
-$(function() {
-	//load Token if present
-	setTimeout("initializeToken()", 1000);
-	setTimeout("onRefreshButton(false)", 5000);
+$(window).bind("load", function() {
+	initializeToken();
 });
-
 </script>
 <title>nuxeo InDesign Connector</title>
 </head>
-
 <body onLoad="onLoaded()">
 <div class="ui stackable small borderless menu">
 	<div class="item">

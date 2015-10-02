@@ -72,7 +72,7 @@ function initializeToken(){
     			$("#positive-message").show();
     			$("#host-message").html("on "+host+" as "+login);
     			$("#host-message").show();
-
+    			onRefreshButton(false);
             }
             
         }else{
