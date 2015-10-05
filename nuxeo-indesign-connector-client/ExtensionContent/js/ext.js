@@ -43,6 +43,7 @@ function onLoaded() {
 	
     addPlugPlugSuccessEventListener();
     loadPlugPlugLibrary();
+    
 }
 
 //This function takes care of loading the PlugPlugExternalLibrary object on
