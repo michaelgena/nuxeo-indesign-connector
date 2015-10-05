@@ -45,6 +45,7 @@ function generateToken(host, login, password){
 				 $("#host-message").html("on "+host+" as "+login);
 				 $("#host-message").show();
 				 $('#form').hide();
+				 location.reload();
 	         }			 
 		},
 		  error: function(){
