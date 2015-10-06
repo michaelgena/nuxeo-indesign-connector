@@ -39,7 +39,7 @@ On Mac
 - Double click on the file **EnableUnsignedExtensions.command** that you will find under the "package/Scripts" folder.
 
 On Windows
-- Open the registry key **HKEY_CURRENT_USER/Software/Adobe/CSXS.4** and add a key named PlayerDebugMode, of type String, and value 1.
+- Open the registry key **HKEY_CURRENT_USER/Software/Adobe/CSXS.6** and add a key named PlayerDebugMode, of type String, and value 1.
 
 Step 3  
 Restart inDesign and go to **Window > Extensions > nuxeo InDesign Connector**.  
