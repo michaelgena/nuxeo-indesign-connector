@@ -6,7 +6,7 @@
 		        <pattern quoteParameters="true" escapeParameters="true">
 		           SELECT * FROM Document WHERE ecm:mixinType = 'Folderish' AND dc:title ILIKE ?
 		        </pattern>
-		        <pageSize>100</pageSize>	        
+		        <pageSize>10</pageSize>	        
 		    </genericPageProvider>
 		</extension>
 </component>
