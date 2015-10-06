@@ -37,6 +37,7 @@ On Windows, into %APPDATA%\Adobe\CEP\extensions
 Step 2  
 On Mac
 - Double click on the file **EnableUnsignedExtensions.command** that you will find under the "package/Scripts" folder.
+- You will be asked to type your password, do so and press enter, that's it.
 
 On Windows
 - Open the registry key **HKEY_CURRENT_USER/Software/Adobe/CSXS.6** and add a key named PlayerDebugMode, of type String, and value 1.
@@ -52,8 +53,7 @@ If everything went well you should end up having a list of assets displayed.
 Once there, if you want to add an asset into your inDesign document you just need to click on the thumbnail.
 
 ## Link persistency
-Now, anytime your asset is modified within nuxeo you'll get a badge notification beside the reload icon. All you need to do is click on it and the
-new version of the asset will be imported.
+Now, anytime your asset is modified within nuxeo you'll get a badge notification beside the reload icon. All you need to do is click on it and the new version of the asset will be imported.
 You then need to display the links panel (**Window > links**) and double click on the alert icon to replace the old version by the new one.
 
 ## About Nuxeo
