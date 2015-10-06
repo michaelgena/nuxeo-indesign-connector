@@ -8,4 +8,4 @@ echo '    <key>LogLevel</key>' >> com.adobe.CSXS.6.plist
 echo '    <string>1</string>' >> com.adobe.CSXS.6.plist
 echo '  </dict>' >> com.adobe.CSXS.6.plist
 echo '</plist>' >> com.adobe.CSXS.6.plist
-
+sudo killall cfprefsd
