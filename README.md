@@ -1,53 +1,59 @@
 # nuxeo-indesign-connector
-<img src="Screen-Shot.png"/>  
+
+<img src="Screen-Shot.png"/>
 The nuxeo Connector for InDesign enables designers to import assets into an InDesign layout directly from nuxeo.
 The connector is divided into 2 parts, a server side and a client side.
 
+# Building
+    mvn clean install -Pmarketplace,ftest
+
+## QA
+
+[![Build Status](https://qa.nuxeo.org/jenkins/buildStatus/icon?job=addons_nuxeo-indesign-connector-master)](https://qa.nuxeo.org/jenkins/job/addons_nuxeo-indesign-connector-master/)
+
 ## Server side plugin
 
-**How to build**  
-Go to the sub-folder **nuxeo-indesign-connector-server** and build the marketplace package using the following command line:
-```
-mvn install
-```
+### How to install
 
-**How to install**  
-You will end up with a zip containing the marketplace package located here:  ***/marketplace-nuxeo-indesign-connector/target/marketplace-nuxeo-indesign-connector-1.0-SNAPSHOT.zip***.
+Install the Marketplace package:
+
+    nuxeoctl mp-install marketplace-nuxeo-indesign-connector/marketplace/target/marketplace-*.zip
+
 Once you installed the package into your nuxeo instance, you need to select the folders to which you want the ***Guest User*** to have a read-only access (This is done under nuxeo instance directly).
 
 
 ## Client side Plugin
 
-**How to build**  
-Go to the **nuxeo-indesign-connector-client** folder and run the following command line:
-```
-mvn install
-```
-This will copy all the necessary files for the inDesign plugin under the **package** folder.
+### How to install
 
-**How to install**  
-Step 1  
- Copy the folder "org.nuxeo.indesignconnector" that you'll find under the **package** folder :
+#### Step 1
+
+Copy the folder "`nuxeo-indesign-connector-client/package/org.nuxeo.indesignconnector`":
 ```
 On Mac, into ~/Library/Application\ Support/Adobe/CEP/extensions
 ```
 ```
 On Windows, into %APPDATA%\Adobe\CEP\extensions
 ```
-Step 2  
-On Mac
+
+#### Step 2
+
+Mac OS X:
+
 - Double click on the file **EnableUnsignedExtensions.command** that you will find under the "package/Scripts" folder.
 - You will be asked to type your password, do so and press enter, that's it.
 
-On Windows
+Windows:
+
 - Open the registry key **HKEY_CURRENT_USER/Software/Adobe/CSXS.6** and add a key named PlayerDebugMode, of type String, and value 1.
 
-Step 3  
-Restart inDesign and go to **Window > Extensions > nuxeo InDesign Connector**.  
+#### Step 3
+
+Restart inDesign and go to **Window > Extensions > nuxeo InDesign Connector**.
 Once there click on the settings icon and fill in the following informations:
-- url of your nuxeo instance
+- URL of your nuxeo instance
 - login
-- password  
+- password
 
 If everything went well you should end up having a list of assets displayed.
 Once there, if you want to add an asset into your inDesign document you just need to click on the thumbnail.
@@ -58,6 +64,6 @@ You then need to display the links panel (**Window > links**) and double click o
 
 ## About Nuxeo
 
-Nuxeo provides a modular, extensible Java-based [open source software platform for enterprise content management](http://www.nuxeo.com/en/products/ep) and packaged applications for [document management](http://www.nuxeo.com/en/products/document-management), [digital asset management](http://www.nuxeo.com/en/products/dam) and [case management](http://www.nuxeo.com/en/products/case-management). Designed by developers for developers, the Nuxeo platform offers a modern architecture, a powerful plug-in model and extensive packaging capabilities for building content applications.
-
-More information at <http://www.nuxeo.com/>
+Nuxeo dramatically improves how content-based applications are built, managed and deployed, making customers more agile, innovative and successful. Nuxeo provides a next generation, enterprise ready platform for building traditional and cutting-edge content oriented applications. Combining a powerful application development environment with
+SaaS-based tools and a modular architecture, the Nuxeo Platform and Products provide clear business value to some of the most recognizable brands including Verizon, Electronic Arts, Netflix, Sharp, FICO, the U.S. Navy, and Boeing. Nuxeo is headquartered in New York and Paris.
+More information is available at [www.nuxeo.com](http://www.nuxeo.com).

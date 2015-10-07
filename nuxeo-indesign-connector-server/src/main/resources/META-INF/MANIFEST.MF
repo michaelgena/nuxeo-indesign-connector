@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: nuxeo-indesign-connector
+Bundle-Name: nuxeo-indesign-connector
+Bundle-Version: 1.0.qualifier
+Bundle-ClassPath: .
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ManifestVersion: 2
+Bundle-Vendor: Nuxeo
+Nuxeo-Component: OSGI-INF/extensions/cors.xml,
+ OSGI-INF/extensions/assets-for-indesign-connector.xml,
+ OSGI-INF/extensions/query-assets-for-indesign-connector.xml,
+ OSGI-INF/extensions/query-assets-with-children-for-indesign-connector.xml

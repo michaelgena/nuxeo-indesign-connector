@@ -2,5 +2,5 @@ target/
 bin/
 .settings/
 .project
-
+.classpath
 

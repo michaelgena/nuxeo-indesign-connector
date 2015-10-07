@@ -1,0 +1,28 @@
+<!-- See documentation at http://doc.nuxeo.com/x/HgIz -->
+<package type="addon" name="nuxeo-indesign-connector-marketplace" version="@VERSION@">
+  <title>Nuxeo inDesign Connector</title>
+  <description>
+    The nuxeo Connector for InDesign enables designers to import assets into an InDesign layout directly
+    from nuxeo. The
+    connector is divided into 2 parts, a server side and a client side.
+    <br />
+    Now, anytime your asset is modified within nuxeo you'll get a badge notification beside the reload icon. All you
+    need to do is click on it and the new version of the asset will be imported. You then need to display the links
+    panel (Window > links) and double click on the alert icon to replace the old version by the new one.
+  </description>
+  <home-page>https://github.com/nuxeo/nuxeo-indesign-connector/blob/master/README.md</home-page>
+  <vendor>Nuxeo</vendor>
+  <installer restart="true" />
+  <uninstaller restart="false" />
+  <hotreload-support>false</hotreload-support>
+  <require-terms-and-conditions-acceptance>false</require-terms-and-conditions-acceptance>
+  <nuxeo-validation>primary_validation</nuxeo-validation>
+  <production-state>testing</production-state>
+  <supported>true</supported>
+  <platforms>
+    <platform>cap-@DISTRIB_VERSION@</platform>
+  </platforms>
+  <license>LGPL 2.1</license>
+  <license-url>http://www.gnu.org/licenses/lgpl-2.1.html</license-url>
+  <visibility>MARKETPLACE</visibility>
+</package>

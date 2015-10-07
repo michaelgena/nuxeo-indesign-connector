@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ExtensionList>
-    <Extension Id="org.nuxeo.indesignconnector">
-        <HostList>
-            <!-- InDesign -->
-            <Host Name="IDSN" Port="8107" />
-        </HostList>
-    </Extension>
-</ExtensionList>
