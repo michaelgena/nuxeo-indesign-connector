@@ -10,15 +10,15 @@
   <artifactId>marketplace-nuxeo-indesign-connector</artifactId>
   <packaging>zip</packaging>
   <name>Market Place Package for Nuxeo InDesign Connector</name>
-  <description/>
-   <properties>
+  <description>Nuxeo inDesign connector enables you to explore your assets stored in nuxeo within inDesign.</description>
+  <properties>
 	    <nuxeo-indesign-connector.version>1.0-SNAPSHOT</nuxeo-indesign-connector.version>
         <nuxeo.project.version>${project.version}</nuxeo.project.version>
-        <nuxeo.version>7.3</nuxeo.version>
-        <nuxeo.distribution.version>7.3</nuxeo.distribution.version>
+        <nuxeo.version>7.4</nuxeo.version>
+        <nuxeo.distribution.version>7.4</nuxeo.distribution.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    </properties>
+  </properties>
   <dependencyManagement>
         <dependencies>
             <!-- Import Nuxeo BOM -->
