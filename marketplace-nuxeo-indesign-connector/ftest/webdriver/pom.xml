@@ -9,7 +9,7 @@
     <relativePath>../../pom.xml</relativePath>
   </parent>
 
-  <artifactId>webdriver</artifactId>
+  <artifactId>indesign-webdriver</artifactId>
   <name>Functional tests with WebDriver for inDesign</name>
   <description>Functional tests with WebDriver for inDesign</description>
 

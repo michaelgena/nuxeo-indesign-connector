@@ -8,7 +8,7 @@
     <version>7.10-SNAPSHOT</version>
   </parent>
   <groupId>org.nuxeo.indesignconnector</groupId>
-  <artifactId>nuxeo-indesign-connector</artifactId>
+  <artifactId>nuxeo-indesign-connector-client</artifactId>
   <name>Nuxeo InDesign Connector Client</name>
   <build>
     <plugins>
