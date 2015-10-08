@@ -35,6 +35,16 @@
     </profile>
   </profiles>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.nuxeo.indesignconnector</groupId>
+        <artifactId>nuxeo-indesign-connector-server</artifactId>
+        <version>${nuxeo.addons.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <repositories>
     <repository>
       <id>public</id>
