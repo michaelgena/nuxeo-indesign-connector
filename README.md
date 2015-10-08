@@ -43,7 +43,7 @@ Mac OS X:
 
 Windows:
 
-- Open the registry key **HKEY_CURRENT_USER/Software/Adobe/CSXS.6** and add a key named PlayerDebugMode, of type String, and value 1.
+- Double click on the file EnableUnsignedExtensions.reg under the "package/Scripts" folder and click on accept.
 
 #### Step 3
 
