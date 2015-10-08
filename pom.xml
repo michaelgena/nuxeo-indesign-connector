@@ -27,6 +27,12 @@
         <module>marketplace-nuxeo-indesign-connector</module>
       </modules>
     </profile>
+    <profile>
+      <id>release</id>
+      <modules>
+        <module>marketplace-nuxeo-indesign-connector</module>
+      </modules>
+    </profile>
   </profiles>
 
   <repositories>

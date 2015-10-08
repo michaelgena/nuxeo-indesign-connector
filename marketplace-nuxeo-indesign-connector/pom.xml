@@ -24,6 +24,12 @@
         <module>ftest/webdriver</module>
       </modules>
     </profile>
+    <profile>
+      <id>release</id>
+      <modules>
+        <module>ftest/webdriver</module>
+      </modules>
+    </profile>
   </profiles>
 
   <dependencyManagement>
