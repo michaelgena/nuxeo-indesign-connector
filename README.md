@@ -1,6 +1,6 @@
 # nuxeo-indesign-connector
 
-<img src="Screen-Shot.png"/>
+<img src="Screen-Shot.png"/>  
 The nuxeo Connector for InDesign enables designers to import assets into an InDesign layout directly from nuxeo.
 The connector is divided into 2 parts, a server side and a client side.
 
@@ -18,8 +18,6 @@ The connector is divided into 2 parts, a server side and a client side.
 Install [the inDesign Marketplace package](https://connect.nuxeo.com/nuxeo/site/marketplace/package/nuxeo-indesign-connector-marketplace):
 
     nuxeoctl mp-install marketplace-nuxeo-indesign-connector/marketplace/target/marketplace-*.zip
-
-Once you installed the package into your nuxeo instance, you need to select the folders to which you want the ***Guest User*** to have a read-only access (This is done under nuxeo instance directly).
 
 
 ## Client side Plugin
