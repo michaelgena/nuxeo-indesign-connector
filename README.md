@@ -31,7 +31,7 @@ Copy the folder "`nuxeo-indesign-connector-client/package/org.nuxeo.indesignconn
 On Mac, into ~/Library/Application\ Support/Adobe/CEP/extensions
 ```
 ```
-On Windows, into %APPDATA%\Adobe\CEP\extensions
+On Windows, into C:\Program Files (x86)\Common Files\Adobe\CEP\extensions
 ```
 
 #### Step 2
