@@ -15,7 +15,7 @@ The connector is divided into 2 parts, a server side and a client side.
 
 ### How to install
 
-Install the Marketplace package:
+Install [the inDesign Marketplace package](https://connect.nuxeo.com/nuxeo/site/marketplace/package/nuxeo-indesign-connector-marketplace):
 
     nuxeoctl mp-install marketplace-nuxeo-indesign-connector/marketplace/target/marketplace-*.zip
 
