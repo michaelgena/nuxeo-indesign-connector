@@ -1,6 +1,6 @@
 # nuxeo-indesign-connector
 
-This project is not maintained anymore, please use the one here: https://github.com/nuxeo/nuxeo-indesign-connector
+This project is moved to https://github.com/nuxeo/nuxeo-indesign-connector
 
 ## About Nuxeo
 
