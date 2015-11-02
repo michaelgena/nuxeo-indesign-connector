@@ -60,6 +60,13 @@ Once there, if you want to add an asset into your inDesign document you just nee
 Now, anytime your asset is modified within nuxeo you'll get a badge notification beside the reload icon. All you need to do is click on it and the new version of the asset will be imported.
 You then need to display the links panel (**Window > links**) and double click on the alert icon to replace the old version by the new one.
 
+### Photoshop and Ilustrator 
+For Photoshop and Illustrator the steps for the installation are almost the same as for InDesign.
+On the server side you need to install the same marketplace package as for InDesign. 
+For the client side, on Step 1 use:
+- "`nuxeo-photoshop-connector-client/package/org.nuxeo.photoshopconnector`" for Photoshop
+- "`nuxeo-illustrator-connector-client/package/org.nuxeo.illustratorconnector`" for Illustrator
+
 ## About Nuxeo
 
 Nuxeo dramatically improves how content-based applications are built, managed and deployed, making customers more agile, innovative and successful. Nuxeo provides a next generation, enterprise ready platform for building traditional and cutting-edge content oriented applications. Combining a powerful application development environment with
