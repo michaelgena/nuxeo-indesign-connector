@@ -30,7 +30,7 @@
 				</Lifecycle>
 				<UI>
 					<Type>Panel</Type>
-					<Menu>nuxeo Photoshop Connector</Menu>
+					<Menu>Nuxeo Photoshop Connector</Menu>
 					<Geometry>
 						<Size>
 							<Height>600</Height>
