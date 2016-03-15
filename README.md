@@ -1,7 +1,7 @@
 # nuxeo-indesign-connector
 
 <img src="Screen-Shot.png"/>  
-The nuxeo Connector for InDesign enables designers to import assets into an InDesign layout directly from nuxeo.
+The Nuxeo Connector for InDesign enables designers to import assets into an InDesign layout directly from Nuxeo Platform.
 The connector is divided into 2 parts, a server side and a client side.
 
 # Building
@@ -66,6 +66,9 @@ On the server side you need to install the same marketplace package as for InDes
 For the client side, on Step 1 use:
 - "`nuxeo-photoshop-connector-client/package/org.nuxeo.photoshopconnector`" for Photoshop
 - "`nuxeo-illustrator-connector-client/package/org.nuxeo.illustratorconnector`" for Illustrator
+- 
+## Known Limitations
+Currently there is a limitation of the InDesign API regarding the https protocol. This is the reason why we only propose an http connection in the Nuxeo Asset Explorer within InDesign.
 
 ## About Nuxeo
 
