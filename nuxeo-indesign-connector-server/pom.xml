@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.nuxeo.indesignconnector</groupId>
     <artifactId>parent-nuxeo-indesign-connector</artifactId>
-    <version>8.2-SNAPSHOT</version>
+    <version>8.3-SNAPSHOT</version>
   </parent>
   <artifactId>nuxeo-indesign-connector-server</artifactId>
   <name>Nuxeo InDesign Connector Server</name>
