@@ -29,7 +29,7 @@
 				</Lifecycle>
 				<UI>
 					<Type>Panel</Type>
-					<Menu>nuxeo InDesign Connector</Menu>
+					<Menu>Nuxeo InDesign Connector</Menu>
 					<Geometry>
 						<Size>
 							<Height>600</Height>
