@@ -1,8 +1,8 @@
 # nuxeo-indesign-connector
 
 <img src="Screen-Shot.png"/>  
-The Nuxeo Connector for InDesign enables designers to import assets into an InDesign layout directly from Nuxeo Platform.
-The connector is divided into 2 parts, a server side and a client side.
+
+The Nuxeo Adobe CC Connector enables designers to import assets into an InDesign, Photoshop, or Illustrator document directly from nuxeo. The connector is divided into 2 parts, a server side and a client side that must be installed on the corresponding Adobe Solution.  Now, anytime your asset is modified within nuxeo you'll get a badge notification beside the reload icon. All you need to do is click on it and the new version of the asset will be imported. You then need to display the links panel (Window > links) and double click on the alert icon to replace the old version by the new one.
 
 # Building
     mvn clean install -Pmarketplace,ftest
@@ -47,7 +47,7 @@ Windows:
 
 #### Step 3
 
-Restart inDesign and go to **Window > Extensions > nuxeo InDesign Connector**.
+Restart inDesign and go to **Window > Extensions > Nuxeo InDesign Connector**.
 Once there click on the settings icon and fill in the following informations:
 - URL of your nuxeo instance
 - login
