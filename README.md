@@ -9,7 +9,7 @@ The Nuxeo Adobe CC Connector enables designers to import assets into an InDesign
 
 ## QA
 
-[![Build Status](https://qa.nuxeo.org/jenkins/buildStatus/icon?job=addons_nuxeo-indesign-connector-master)](https://qa.nuxeo.org/jenkins/job/addons_nuxeo-indesign-connector-master/)
+[![Build Status](https://qa.nuxeo.org/jenkins/job/master/job/addons_FT_nuxeo-indesign-connector-master/)](https://qa.nuxeo.org/jenkins/job/master/job/addons_FT_nuxeo-indesign-connector-master/)
 
 ## Server side plugin
 
