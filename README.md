@@ -2,7 +2,7 @@
 
 <img src="Screen-Shot.png"/>  
 
-The Nuxeo Adobe CC Connector enables designers to import assets into an InDesign, Photoshop, or Illustrator document directly from Nuxeo. The connector is divided into two parts, a server side and a client side that must be installed on the corresponding Adobe Solution.  Now, anytime your asset is modified within Nuxeo you'll get a badge notification beside the reload icon. All you need to do is click on it and the new version of the asset will be imported. You then need to display the links panel (Window > links) and double click on the alert icon to replace the old version by the new one.
+The Nuxeo Adobe CC Connector, previously known Nuxeo InDesign Connector, enables designers to import assets into an InDesign, Photoshop, or Illustrator document directly from Nuxeo. The connector is divided into two parts, a server side and a client side that must be installed on the corresponding Adobe Solution.  Now, anytime your asset is modified within Nuxeo you'll get a badge notification beside the reload icon. All you need to do is click on it and the new version of the asset will be imported. You then need to display the links panel (Window > links) and double click on the alert icon to replace the old version by the new one.
 
 # Building
     mvn clean install -Pmarketplace,ftest
