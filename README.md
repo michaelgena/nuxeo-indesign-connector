@@ -2,7 +2,7 @@
 
 <img src="Screen-Shot.png"/>  
 
-The Nuxeo Adobe CC Connector enables designers to import assets into an InDesign, Photoshop, or Illustrator document directly from nuxeo. The connector is divided into 2 parts, a server side and a client side that must be installed on the corresponding Adobe Solution.  Now, anytime your asset is modified within nuxeo you'll get a badge notification beside the reload icon. All you need to do is click on it and the new version of the asset will be imported. You then need to display the links panel (Window > links) and double click on the alert icon to replace the old version by the new one.
+The Nuxeo Adobe CC Connector enables designers to import assets into an InDesign, Photoshop, or Illustrator document directly from Nuxeo. The connector is divided into two parts, a server side and a client side that must be installed on the corresponding Adobe Solution.  Now, anytime your asset is modified within Nuxeo you'll get a badge notification beside the reload icon. All you need to do is click on it and the new version of the asset will be imported. You then need to display the links panel (Window > links) and double click on the alert icon to replace the old version by the new one.
 
 # Building
     mvn clean install -Pmarketplace,ftest
@@ -11,18 +11,18 @@ The Nuxeo Adobe CC Connector enables designers to import assets into an InDesign
 
 [![Build Status](https://qa.nuxeo.org/jenkins/job/master/job/addons_FT_nuxeo-indesign-connector-master/)](https://qa.nuxeo.org/jenkins/job/master/job/addons_FT_nuxeo-indesign-connector-master/)
 
-## Server side plugin
+## Server-Side Plugin
 
-### How to install
+### How to Install
 
-Install [the inDesign Marketplace package](https://connect.nuxeo.com/nuxeo/site/marketplace/package/nuxeo-indesign-connector-marketplace):
+Install [the Nuxeo Adobe CC Connector Nuxeo Package](https://connect.nuxeo.com/nuxeo/site/marketplace/package/nuxeo-indesign-connector-marketplace):
 
     nuxeoctl mp-install marketplace-nuxeo-indesign-connector/marketplace/target/marketplace-*.zip
 
 
-## Client side Plugin
+## Client-Side Plugin
 
-### How to install
+### How to Install
 
 #### Step 1
 
@@ -39,37 +39,37 @@ On Windows, into C:\Program Files (x86)\Common Files\Adobe\CEP\extensions
 Mac OS X:
 
 - Double click on the file **EnableUnsignedExtensions.command** that you will find under the "package/Scripts" folder.
-- You will be asked to type your password, do so and press enter, that's it.
+- You will be asked to type your password, do so and press enter. That's it.
 
 Windows:
 
-- Double click on the file EnableUnsignedExtensions.reg under the "package/Scripts" folder and click on accept.
+- Double click on the file **EnableUnsignedExtensions.reg** under the "package/Scripts" folder and click on Accept.
 
 #### Step 3
 
 Restart inDesign and go to **Window > Extensions > Nuxeo InDesign Connector**.
 Once there click on the settings icon and fill in the following informations:
-- URL of your nuxeo instance
+- URL of your Nuxeo instance
 - login
 - password
 
 If everything went well you should end up having a list of assets displayed.
 Once there, if you want to add an asset into your inDesign document you just need to click on the thumbnail.
 
-## Link persistency
-Now, anytime your asset is modified within nuxeo you'll get a badge notification beside the reload icon. All you need to do is click on it and the new version of the asset will be imported.
+## Link Persistency
+Now, anytime your asset is modified within Nuxeo you'll get a badge notification beside the reload icon. All you need to do is click on it and the new version of the asset will be imported.
 You then need to display the links panel (**Window > links**) and double click on the alert icon to replace the old version by the new one.
 
 ### Photoshop and Ilustrator 
 For Photoshop and Illustrator the steps for the installation are almost the same as for InDesign.
-On the server side you need to install the same marketplace package as for InDesign. 
+On the server side you need to install the same Nuxeo Package as for InDesign. 
 For the client side, on Step 1 use:
 - "`nuxeo-photoshop-connector-client/package/org.nuxeo.photoshopconnector`" for Photoshop
 - "`nuxeo-illustrator-connector-client/package/org.nuxeo.illustratorconnector`" for Illustrator
 
 
 ## Known Limitations
-Currently there is a limitation of the InDesign API regarding the https protocol. This is the reason why we only propose an http connection in the Nuxeo Asset Explorer within InDesign.
+Currently there is a limitation of the InDesign API regarding the HTTPS protocol. This is the reason why we only propose an HTTP connection in the Nuxeo Asset Explorer within InDesign.
 
 ## About Nuxeo
 
