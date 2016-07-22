@@ -43,27 +43,29 @@
     <copy todir="${outdir}/nxr/bundles" overwrite="true">
       <artifact:set>
         <includes>
-          <artifact groupId="org.nuxeo*" scope="!test" type="!pom" />
-          <artifact groupId="nuxeo-studio" scope="!test" type="!pom" />
+          <artifact groupId="org.nuxeo*" />
+          <artifact groupId="nuxeo-studio" />
         </includes>
         <excludes>
           <artifact groupId="org.nuxeo.lib" />
+          <artifact scope="test" />
+          <artifact scope="provided" />
+          <artifact type="pom" />
         </excludes>
       </artifact:set>
     </copy>
     <!-- Third-party libraries -->
     <copy todir="${outdir}/nxr/lib" overwrite="true">
       <artifact:set>
+        <includes>
+          <artifact groupId="!org.nuxeo*" />
+          <artifact groupId="org.nuxeo.lib" />
+        </includes>
         <excludes>
-          <!-- Filter out your artifacts using their groupId for instance -->
-          <artifact groupId="org.nuxeo*" />
           <artifact type="pom" />
           <artifact groupId="nuxeo-studio" />
           <artifact scope="test" />
         </excludes>
-        <includes>
-          <artifact groupId="org.nuxeo.lib" scope="!test" type="!pom" />
-        </includes>
       </artifact:set>
     </copy>
     <nx:rmdups dir="${outdir}/nxr/lib" />
